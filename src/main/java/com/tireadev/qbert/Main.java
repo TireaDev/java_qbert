@@ -51,7 +51,7 @@ class MapScene extends Scene {
     final byte scale = Main.scale, tile = Main.tile;
 
     byte[] block_sides;
-    byte[] block_top;
+    byte[][] block_tops = new byte[4][];
 
     final byte mapWidth = 7;
     final byte[] map = new byte[] {
@@ -72,7 +72,9 @@ class MapScene extends Scene {
     @Override
     public void onAwake() {
         block_sides = se.loadImage("/textures/block/block-sides.png");
-        block_top = se.loadImage("/textures/block/block-top.png");
+        for (int i = 0; i < block_tops.length; i++) {
+            block_tops[i] = se.loadImage("/textures/block/block-top.png", 0, i*16, 32, 16);
+        }
     }
 
     @Override
@@ -90,8 +92,9 @@ class MapScene extends Scene {
                     int tx = x * tile * scale + ox;
                     int ty = y * oy + (tile * scale * 5/4);
 
+                    if (val >= block_tops.length) val = 0;
                     se.drawImage(tx, ty, tile, block_sides, scale);
-                    se.drawImage(tx, ty, tile, block_top, scale);
+                    se.drawImage(tx, ty, tile, block_tops[val], scale);
                 }
             }
         }
