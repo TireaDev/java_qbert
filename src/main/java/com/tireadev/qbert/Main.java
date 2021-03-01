@@ -5,7 +5,7 @@ import com.tireadev.shadowengine.ShadowEngine;
 
 public class Main extends ShadowEngine {
 
-    static final byte scale = 2, tile = 32;
+    static final byte scale = 4, tile = 32;
 
     @Override
     public void onAwake() {
