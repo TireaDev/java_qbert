@@ -3,9 +3,12 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
+import static com.tireadev.qbert.Main.path_prefix;
+
 public class Main extends ShadowEngine {
 
     static final byte scale = 2, tile = 32;
+    static final String path_prefix = "src/main/resources/";
 
     @Override
     public void onAwake() {
@@ -71,9 +74,9 @@ class MapScene extends Scene {
 
     @Override
     public void onAwake() {
-        block_sides = se.loadImage("/textures/block/block-sides.png");
+        block_sides = se.loadImage(path_prefix + "textures/block/block-sides.png");
         for (int i = 0; i < block_tops.length; i++) {
-            block_tops[i] = se.loadImage("/textures/block/block-top.png", 0, i*16, 32, 16);
+            block_tops[i] = se.loadImage(path_prefix + "textures/block/block-top.png", 0, i*16, 32, 16);
         }
     }
 
@@ -93,8 +96,8 @@ class MapScene extends Scene {
                     int ty = y * oy + (tile * scale * 5/4);
 
                     if (val >= block_tops.length) val = 0;
-                    se.drawImage(tx, ty, tile, block_sides, scale);
-                    se.drawImage(tx, ty, tile, block_tops[val], scale);
+                    se.drawImage(tx, ty, block_sides, scale);
+                    se.drawImage(tx, ty, block_tops[val], scale);
                 }
             }
         }
