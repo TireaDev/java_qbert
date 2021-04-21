@@ -3,9 +3,14 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
+import static com.tireadev.qbert.Main.path_atlas;
+import static com.tireadev.qbert.Main.path_prefix;
+
 public class Main extends ShadowEngine {
 
     static final byte scale = 2, tile = 32;
+    static final String path_prefix = "src/main/resources/";
+    static final String path_atlas = path_prefix + "textures/atlas.png";
 
     @Override
     public void onAwake() {
@@ -50,8 +55,7 @@ class MapScene extends Scene {
 
     final byte scale = Main.scale, tile = Main.tile;
 
-    byte[] block_sides;
-    byte[][] block_tops = new byte[4][];
+    byte[][] blocks = new byte[4][];
 
     final byte mapWidth = 7;
     final byte[] map = new byte[] {
@@ -71,10 +75,10 @@ class MapScene extends Scene {
 
     @Override
     public void onAwake() {
-        block_sides = se.loadImage("/textures/block/block-sides.png");
-        for (int i = 0; i < block_tops.length; i++) {
-            block_tops[i] = se.loadImage("/textures/block/block-top.png", 0, i*16, 32, 16);
-        }
+        blocks[1] = se.loadImage(path_atlas, 0, 5*32, 32, 32);
+        blocks[2] = se.loadImage(path_atlas, 0, 6*32, 32, 32);
+        blocks[3] = se.loadImage(path_atlas, 0, 7*32, 32, 32);
+        blocks[0] = se.loadImage(path_atlas, 0, 9*32, 32, 32);
     }
 
     @Override
@@ -92,9 +96,8 @@ class MapScene extends Scene {
                     int tx = x * tile * scale + ox;
                     int ty = y * oy + (tile * scale * 5/4);
 
-                    if (val >= block_tops.length) val = 0;
-                    se.drawImage(tx, ty, tile, block_sides, scale);
-                    se.drawImage(tx, ty, tile, block_tops[val], scale);
+                    if (val >= blocks.length) val = 0;
+                    se.drawImage(tx, ty, blocks[val], scale);
                 }
             }
         }
