@@ -5,8 +5,11 @@ import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.path_atlas;
 import static com.tireadev.qbert.Main.path_prefix;
+import static com.tireadev.shadowengine.ShadowEngine.*;
 
 public class Main extends ShadowEngine {
+
+    MainMenuScene mainMenu;
 
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
@@ -15,8 +18,11 @@ public class Main extends ShadowEngine {
     @Override
     public void onAwake() {
 
-        new MapScene(this).setActive();
-        Scene.active.onAwake();
+        mainMenu = new MainMenuScene(this);
+
+    //    new MapScene(this).setActive();
+        mainMenu.setActive();
+        Scene.active.onAwake(); //
 
     }
 
@@ -30,7 +36,7 @@ public class Main extends ShadowEngine {
 
         if (keyPressed(256)) close();
 
-        clear(BLACK);
+    //    clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
     }
@@ -101,5 +107,37 @@ class MapScene extends Scene {
                 }
             }
         }
+    }
+}
+
+class MainMenuScene extends Scene{
+
+      ShadowEngine se;
+      byte[][] chars = new byte[26][];
+
+
+    public MainMenuScene(ShadowEngine instance) {
+        super(instance);
+    }
+
+     public void onAwake(){
+        se = instance;
+         for (int i = 0; i < 26; i++) {chars [i] = se.loadImage(path_atlas,128+8*i,8,8,8);
+
+         }
+
+     }
+
+    @Override
+    public void onUpdate(float deltaTime) {
+        se.clear(BLACK);
+        //for (int i = 0; i < 26; i++) {se.drawImage(i*8*2,i,chars[i],2);
+
+//        }
+        se.drawImage(0*8*9,10,chars['P'-65],9);
+        se.drawImage(1*8*9,20,chars['A'-65],9);
+        se.drawImage(2*8*9,30,chars['V'-65],9);
+        se.drawImage(3*8*9,40,chars['E'-65],9);
+        se.drawImage(4*8*9,50,chars['L'-65],9);
     }
 }
