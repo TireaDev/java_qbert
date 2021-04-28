@@ -4,7 +4,6 @@ import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.path_atlas;
-import static com.tireadev.qbert.Main.path_prefix;
 
 public class Main extends ShadowEngine {
 
