@@ -3,6 +3,8 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
+import javax.swing.*;
+
 import static com.tireadev.qbert.Main.path_atlas;
 import static com.tireadev.qbert.Main.path_prefix;
 
@@ -11,12 +13,15 @@ public class Main extends ShadowEngine {
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
     static final String path_atlas = path_prefix + "textures/atlas.png";
+    EnemyScene en;
 
     @Override
     public void onAwake() {
 
         new MapScene(this).setActive();
+        en = new EnemyScene(this);
         Scene.active.onAwake();
+        en.onAwake();
 
     }
 
@@ -33,14 +38,15 @@ public class Main extends ShadowEngine {
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
+
+        en.onUpdate(deltaTime);
+
     }
 
     @Override
     public void onClose() {
 
     }
-
-
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -100,6 +106,79 @@ class MapScene extends Scene {
                     se.drawImage(tx, ty, blocks[val], scale);
                 }
             }
+        }
+    }
+}
+
+class EnemyScene extends Scene{
+
+    ShadowEngine se;
+
+    final int enemyStartX = 7 * 32 + 16;
+    final int enemyStartY = 3 * 32 - 24;
+    int enemyX = enemyStartX;
+    int enemyY = enemyStartY;
+    int xDirection;
+    byte[][] enemies = new byte[4][];
+    final int speed = 60;
+    int timer = 0;
+    final int rows = 7;
+    int verticalPosition = 1;
+    int waitTime = (int)(Math.random() * 4) + 2;
+    int wait = 0;
+
+    public EnemyScene(ShadowEngine instance) {
+        super(instance);
+        this.se = this.instance;
+    }
+
+    public void resetEnemyXY(){
+        this.enemyX = this.enemyStartX;
+        this.enemyY = this.enemyStartY;
+    }
+
+    public void checkCollisions(){
+
+    }
+
+    @Override
+    public void onAwake() {
+        enemies[0] = se.loadImage(path_atlas, 5*16, 16, 16, 16);
+    }
+
+    @Override
+    public void onUpdate(float v) {
+        if(timer == speed){
+            if(wait == waitTime){
+                if(verticalPosition != rows){
+                    this.xDirection = (int)(Math.random()*2);
+                    switch(xDirection){
+                        case 0: this.enemyX = this.enemyX + Main.tile;
+                            break;
+                        case 1: this.enemyX = this.enemyX - Main.tile;
+                    }
+
+                    this.enemyY = this.enemyY + Main.tile + (Main.tile / Main.scale);
+                    verticalPosition++;
+
+                }else{
+                    resetEnemyXY();
+                    verticalPosition = 1;
+                    wait = 0;
+                    waitTime = (int)(Math.random() * 2) + 2;
+
+                }
+            }else{
+                wait++;
+            }
+            timer = 0;
+
+        }else{
+            timer++;
+        }
+
+        if(wait == waitTime){
+            se.drawImage(this.enemyX, this.enemyY, enemies[0], Main.scale);
         }
     }
 }
