@@ -10,6 +10,7 @@ import static com.tireadev.qbert.Main.*;
 public class Main extends ShadowEngine {
 
     MainMenuScene mainMenu;
+    GameOverScene gameOver;
 
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
@@ -19,11 +20,16 @@ public class Main extends ShadowEngine {
     @Override
     public void onAwake() {
 
+        gameOver = new GameOverScene(this);
         mainMenu = new MainMenuScene(this);
+
+        mainMenu.onAwake();
+        gameOver.onAwake();
+
 
     //    new MapScene(this).setActive();
         mainMenu.setActive();
-        Scene.active.onAwake();
+        //Scene.active.onAwake();
 
     }
 
@@ -40,6 +46,9 @@ public class Main extends ShadowEngine {
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
+
+        if (keyPressed('A')) gameOver.setActive();
+        if (keyPressed('D')) mainMenu.setActive();
 
     }
 
@@ -165,5 +174,30 @@ class MainMenuScene extends Scene{
         //se.drawText("GAME OVER", (16*6-8)*scale, (16*8)*scale, chars, 44, scale, true);
         //se.drawText("Continue A", (16*7)*scale, (16*9)*scale, chars, 44, scale, true);
         //se.drawText("Game end B", (16*7)*scale, (16*10)*scale, chars, 44, scale, true);
+    }
+}
+
+class GameOverScene extends Scene{
+    ShadowEngine se;
+
+    public GameOverScene(ShadowEngine instance) {
+        super(instance);
+    }
+
+    byte[][] chars = new byte['Z'-44+1][];
+
+    @Override
+    public void onAwake() {
+        se = instance;
+
+        chars[0] = se.loadImage(path_atlas, 0, 0, 8, 8);
+        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.loadImage(path_atlas,128+8*(i-'A'+44),64+8,8,8);
+    }
+
+    @Override
+    public void onUpdate(float v) {
+        se.drawText("GAME  OVER", (16*5)*scale, (16*6)*scale, chars, 44, scale, true);
+        se.drawText("Continue A", (16*5)*scale, (16*8)*scale, chars, 44, scale, true);
+        se.drawText("Game end B", (16*5)*scale, (16*9)*scale, chars, 44, scale, true);
     }
 }
