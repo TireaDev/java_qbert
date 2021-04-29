@@ -69,6 +69,16 @@ class MapScene extends Scene {
             1,1,1,1,1,1,1
     };
 
+    final byte[] entities = new byte[] {
+            0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,
+            0,0,0,0,2,0,0,
+             0,0,1,0,0,0,0,
+            0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0
+    };
+
     public MapScene(ShadowEngine instance) {
         super(instance);
         this.se = this.instance;
@@ -102,5 +112,24 @@ class MapScene extends Scene {
                 }
             }
         }
+    }
+}
+
+class GameScene extends Scene {
+
+    MapScene mapScene;
+
+    public GameScene(ShadowEngine instance) {
+        super(instance);
+    }
+
+    @Override
+    public void onAwake() {
+        mapScene = new MapScene(instance);
+    }
+
+    @Override
+    public void onUpdate(float deltaTime) {
+        mapScene.onUpdate(deltaTime);
     }
 }
