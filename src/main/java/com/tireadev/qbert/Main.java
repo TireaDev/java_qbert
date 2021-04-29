@@ -12,7 +12,7 @@ public class Main extends ShadowEngine {
 
     static byte[] atlas;
 
-    Scene gameScene;
+    GameScene gameScene;
 
     @Override
     public void onAwake() {
@@ -41,9 +41,21 @@ public class Main extends ShadowEngine {
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('B')) gameOverScene.setActive();
-        if (keyPressed('M')) mainMenuScene.setActive();
-        if (keyPressed('N')) gameScene.setActive();
+        if (keyPressed('B') || gameScene.isDead) gameOverScene.setActive();
+        if (keyPressed('M')) {
+            mainMenuScene.setActive();
+            gameScene.isDead = false;
+
+            gameScene.qbertScene.respawnQbt();
+            gameScene.enemyScene.resetEnemyXY();
+        }
+        if (keyPressed('N')) {
+            gameScene.setActive();
+            gameScene.isDead = false;
+
+            gameScene.qbertScene.respawnQbt();
+            gameScene.enemyScene.resetEnemyXY();
+        }
 
     }
 
@@ -52,10 +64,12 @@ public class Main extends ShadowEngine {
 
     }
 
-
+  
     public static void main(String[] args) {
         Main main = new Main();
         if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
             main.start();
     }
 }
+
+
