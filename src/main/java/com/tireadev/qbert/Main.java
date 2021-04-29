@@ -5,15 +5,13 @@ import com.tireadev.shadowengine.ShadowEngine;
 public class Main extends ShadowEngine {
 
     static final byte scale = 4, tile = 32;
-    static final String path_prefix = "src/main/resources/";
-    static final String path_atlas = path_prefix + "textures/atlas.png";
     static byte[] atlas;
 
     GameScene gameScene;
 
     @Override
     public void onAwake() {
-        atlas = loadImage(path_atlas);
+        atlas = loadImage("src/main/resources/textures/atlas.png");
 
         gameScene = new GameScene(this);
 

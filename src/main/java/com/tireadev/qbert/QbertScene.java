@@ -43,7 +43,7 @@ public class QbertScene extends Scene {
         qbrt = se.getSubImage(atlas, 5*16, 0, 16, 16);
     }
 
-    boolean isEven; // sudý
+    boolean isEven;
 
     @Override
     public void onUpdate(float v) {
@@ -51,81 +51,65 @@ public class QbertScene extends Scene {
         // x: 0 → w
         // y: 0 ↓ h
 
-        tilemap[y * 7 + x] = 0; // změnit číslo na pozici XY na 0
+        tilemap[y * 7 + x] = 0;
 
         isEven = (y * 7 + 1) % 2 == 0;
 
         if (instance.keyPressed('W')){
-//            System.out.println("W was pressed");
             if (isEven) {
-            // pokud sudý řádek, pokuň se nahoru
-                if (y > 0)
-                    y -= 1;
+                // nahoru
+                if (y > 0) y -= 1;
             }
             else {
-            // pokud lichý řádek, posuň se nahoru a doleva
-                if (y > 0 && x > 0) {
-                    x -= 1;
-                    y -= 1;
-                }
+                // doleva
+                if (y > 0 && x > 0) x -= 1;
+                // nahoru
+                if (y > 0) y -= 1;
             }
-
         }
 
         else if (instance.keyPressed('S')){
- //           System.out.println("S was pressed");
             if (isEven) {
-                // pokud sudý řádek, posuň se nahoru a doprava
-                if (y < 6)
-                    y += 1;
-                    x += 1;
+                // doprava
+                if (y < 6 && x < 6) x += 1;
+                // dolů
+                if (y < 6 ) y += 1;
             }
             else {
-                // pokud lichý řádek, posuň se nahoru
-
-                 if (y < 6 && x < 6) {
-                    y += 1;
-
-                }
+                // dolů
+                 if (y < 6) y += 1;
             }
         }
 
         else if (instance.keyPressed('A')){
-//            System.out.println("A was pressed");
             if (isEven) {
-                // pokud lichý řádek, posuň se dolů a doleva
-                if (y < 6)
-                y += 1;
-
+                // dolů
+                if (y < 6) y += 1;
             }
             else {
-                // pokud sudý řádek, posuň se dolů
-
-                if (y < 6 && x < 6) {
-                x -=1;
-                y += 1;
-                }
+                // doleva
+                if (y < 6 && x > 0) x -= 1;
+                // dolů
+                if (y < 6) y += 1;
             }
         }
 
         else if (instance.keyPressed('D')){
-//            System.out.println("D was pressed");
             if (isEven) {
-                // pokud lichý řádek, posuň se dolů
-                if (y > 0)
-                y -= 1;
-                x += 1;
+                // doprava
+                if (y > 0 && x < 6) x += 1;
+                // nahoru
+                if (y > 0) y -= 1;
             }
             else {
-                // pokud sudý řádek, posuň se dolů a doprava
-                if (y > 0 && x > 0) {
-                y -= 1;
-                }
+                // nahoru
+                if (y > 0) y -= 1;
             }
         }
 
-        tilemap[y * 7 + x] = 1; // změnit číslo na pozici XY na 1
+        tilemap[y * 7 + x] = 1;
 
+        System.out.println("x:" + x + "; y:" + y);
 
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 7; x++) {
