@@ -15,10 +15,13 @@ public class Main extends ShadowEngine {
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
     static final String path_atlas = path_prefix + "textures/atlas.png";
+    static byte[] atlas;
 
 
     @Override
     public void onAwake() {
+
+        atlas = loadImage(path_atlas);
 
         gameOver = new GameOverScene(this);
         mainMenu = new MainMenuScene(this);
@@ -138,13 +141,13 @@ class MainMenuScene extends Scene{
 
     public void onAwake() {
         se = instance;
-        ultraGames = se.loadImage(path_atlas,344,0,8*20,8*4);
-        qbertTitle = se.loadImage(path_atlas,344-8,32,16*10,16*3);
-        for (int i = '0'-44; i <= '9'-44; i++) chars[i] = se.loadImage(path_atlas,128+8*(i-'0'+44),64,8,8); // řádek 1
-        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.loadImage(path_atlas,128+8*(i-'A'+44),64+8,8,8); // řádek 2
-        chars[0] = se.loadImage(path_atlas, 128+160, 64, 8, 8); // ,
-        chars[2] = se.loadImage(path_atlas, 128+168, 64, 8, 8); // .
-        bertHimself = se.loadImage(path_atlas,0,0,16,16);
+        ultraGames = se.getSubImage(atlas,344,0,8*20,8*4);
+        qbertTitle = se.getSubImage(atlas,344-8,32,16*10,16*3);
+        for (int i = '0'-44; i <= '9'-44; i++) chars[i] = se.getSubImage(atlas,128+8*(i-'0'+44),64,8,8); // řádek 1
+        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.getSubImage(atlas,128+8*(i-'A'+44),64+8,8,8); // řádek 2
+        chars[0] = se.getSubImage(atlas, 128+160, 64, 8, 8); // ,
+        chars[2] = se.getSubImage(atlas, 128+168, 64, 8, 8); // .
+        bertHimself = se.getSubImage(atlas,0,0,16,16);
     }
 
 
@@ -190,8 +193,8 @@ class GameOverScene extends Scene{
     public void onAwake() {
         se = instance;
 
-        chars[0] = se.loadImage(path_atlas, 0, 0, 8, 8);
-        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.loadImage(path_atlas,128+8*(i-'A'+44),64+8,8,8);
+        chars[0] = se.getSubImage(atlas, 0, 0, 8, 8);
+        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.getSubImage(atlas,128+8*(i-'A'+44),64+8,8,8);
     }
 
     @Override
