@@ -12,11 +12,11 @@ public class Main extends ShadowEngine {
 
     static byte[] atlas;
 
-    Scene gameScene;
+    GameScene gameScene;
 
     @Override
     public void onAwake() {
-        atlas = loadImage("src/main/resources/textures/atlas.png");
+        atlas = loadImage(path_atlas);
 
         mainMenuScene = new MainMenuScene(this);
         gameOverScene = new GameOverScene(this);
@@ -52,10 +52,12 @@ public class Main extends ShadowEngine {
 
     }
 
-
+  
     public static void main(String[] args) {
         Main main = new Main();
         if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
             main.start();
     }
 }
+
+
