@@ -16,7 +16,7 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onAwake() {
-        atlas = loadImage(path_atlas);
+        atlas = loadImage("src/main/resources/textures/atlas.png");
 
         mainMenuScene = new MainMenuScene(this);
         gameOverScene = new GameOverScene(this);

@@ -109,8 +109,6 @@ public class QbertScene extends Scene {
 
         tilemap[y * 7 + x] = 1;
 
-        System.out.println("x:" + x + "; y:" + y);
-
         for (int y = 0; y < 7; y++) {
             for (int x = 0; x < 7; x++) {
                 int val = tilemap[y * 7 + x];
@@ -120,7 +118,7 @@ public class QbertScene extends Scene {
                     ox += (tile-8) * scale;
 
                     int tx = x * tile * scale + ox;
-                    int ty = y * oy + (tile * scale * 5/4) - tile;
+                    int ty = y * oy + (tile * scale * 5/4) - (tile/4*scale);
 
                     se.drawImage(tx, ty, qbrt, scale);
                 }
