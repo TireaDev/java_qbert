@@ -3,41 +3,33 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
-import static com.tireadev.qbert.Main.scale;
-import static com.tireadev.qbert.Main.atlas;
-
 public class Main extends ShadowEngine {
 
-    MainMenuScene mainMenu;
-    GameOverScene gameOver;
+    MainMenuScene mainMenuScene;
+    GameOverScene gameOverScene;
 
     static final byte scale = 2, tile = 32;
-    static final String path_prefix = "src/main/resources/";
-    static final String path_atlas = path_prefix + "textures/atlas.png";
+
     static byte[] atlas;
 
+    Scene gameScene;
 
     @Override
     public void onAwake() {
+        atlas = loadImage("src/main/resources/textures/atlas.png");
 
-        atlas = loadImage(path_atlas);
-
-        gameOver = new GameOverScene(this);
-        mainMenu = new MainMenuScene(this);
-
-        mainMenu.onAwake();
-        gameOver.onAwake();
-
-
-    //    new MapScene(this).setActive();
-        mainMenu.setActive();
-        //Scene.active.onAwake();
-
+        mainMenuScene = new MainMenuScene(this);
+        gameOverScene = new GameOverScene(this);
+        gameScene = new GameScene(this);
+        
+        mainMenuScene.onAwake();
+        gameOverScene.onAwake();
+        gameScene.onAwake();
     }
 
     @Override
     public void onStart() {
-
+        gameScene.setActive();
     }
 
     @Override
@@ -49,8 +41,9 @@ public class Main extends ShadowEngine {
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('A')) gameOver.setActive();
-        if (keyPressed('D')) mainMenu.setActive();
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed('N')) gameScene.setActive();
 
     }
 
@@ -66,8 +59,3 @@ public class Main extends ShadowEngine {
             main.start();
     }
 }
-
-
-
-
-
