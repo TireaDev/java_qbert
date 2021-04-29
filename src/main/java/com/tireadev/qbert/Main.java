@@ -39,8 +39,6 @@ public class Main extends ShadowEngine {
 
     }
 
-
-
     public static void main(String[] args) {
         Main main = new Main();
         if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
