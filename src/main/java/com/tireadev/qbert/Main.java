@@ -3,16 +3,20 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
-import static com.tireadev.qbert.Main.path_atlas;
+import static com.tireadev.qbert.Main.atlas;
+import static com.tireadev.qbert.Main.scale;
+import static com.tireadev.qbert.Main.tile;
 
 public class Main extends ShadowEngine {
 
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
     static final String path_atlas = path_prefix + "textures/atlas.png";
+    static byte[] atlas;
 
     @Override
     public void onAwake() {
+        atlas = loadImage(path_atlas);
 
         new MapScene(this).setActive();
         Scene.active.onAwake();
@@ -52,8 +56,6 @@ class MapScene extends Scene {
 
     ShadowEngine se;
 
-    final byte scale = Main.scale, tile = Main.tile;
-
     byte[][] blocks = new byte[4][];
 
     final byte mapWidth = 7;
@@ -74,10 +76,10 @@ class MapScene extends Scene {
 
     @Override
     public void onAwake() {
-        blocks[1] = se.loadImage(path_atlas, 0, 5*32, 32, 32);
-        blocks[2] = se.loadImage(path_atlas, 0, 6*32, 32, 32);
-        blocks[3] = se.loadImage(path_atlas, 0, 7*32, 32, 32);
-        blocks[0] = se.loadImage(path_atlas, 0, 9*32, 32, 32);
+        blocks[1] = se.getSubImage(atlas, 0, 5*32, 32, 32);
+        blocks[2] = se.getSubImage(atlas, 0, 6*32, 32, 32);
+        blocks[3] = se.getSubImage(atlas, 0, 7*32, 32, 32);
+        blocks[0] = se.getSubImage(atlas, 0, 9*32, 32, 32);
     }
 
     @Override
