@@ -2,26 +2,40 @@ package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
+import sun.rmi.server.Activation$ActivationSystemImpl_Stub;
+
+import static com.tireadev.qbert.Main.atlas;
 
 public class Main extends ShadowEngine {
 
     static final byte scale = 2, tile = 32;
+    static final String path_prefix = "src/main/resources/";
+    static final String path_atlas = path_prefix + "textures/atlas.png";
     static byte[] atlas;
 
-    Scene gameScene;
+    EnemyScene en;
+
+    QbertScene qbt;
 
     @Override
     public void onAwake() {
-        atlas = loadImage("src/main/resources/textures/atlas.png");
+        atlas = loadImage(path_atlas);
 
-        gameScene = new GameScene(this);
+        new MapScene(this).setActive();
+        en = new EnemyScene(this);
+        Scene.active.onAwake();
+        en.onAwake();
 
-        gameScene.onAwake();
+       new MapScene(this).setActive();
+        qbt = new QbertScene(this);
+        Scene.active.onAwake();
+        qbt.onAwake();
+
     }
 
     @Override
     public void onStart() {
-        gameScene.setActive();
+
     }
 
     @Override
@@ -32,6 +46,9 @@ public class Main extends ShadowEngine {
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
+
+        en.onUpdate(deltaTime);
+
     }
 
     @Override
@@ -45,3 +62,5 @@ public class Main extends ShadowEngine {
             main.start();
     }
 }
+
+
