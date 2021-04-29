@@ -5,7 +5,11 @@ import com.tireadev.shadowengine.ShadowEngine;
 
 public class Main extends ShadowEngine {
 
+    MainMenuScene mainMenuScene;
+    GameOverScene gameOverScene;
+
     static final byte scale = 2, tile = 32;
+
     static byte[] atlas;
 
     Scene gameScene;
@@ -14,8 +18,12 @@ public class Main extends ShadowEngine {
     public void onAwake() {
         atlas = loadImage("src/main/resources/textures/atlas.png");
 
+        mainMenuScene = new MainMenuScene(this);
+        gameOverScene = new GameOverScene(this);
         gameScene = new GameScene(this);
-
+        
+        mainMenuScene.onAwake();
+        gameOverScene.onAwake();
         gameScene.onAwake();
     }
 
@@ -32,13 +40,17 @@ public class Main extends ShadowEngine {
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
+
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed('N')) gameScene.setActive();
+
     }
 
     @Override
     public void onClose() {
 
     }
-
 
 
     public static void main(String[] args) {
