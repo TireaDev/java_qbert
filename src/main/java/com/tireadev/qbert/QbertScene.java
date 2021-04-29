@@ -17,7 +17,7 @@ public class QbertScene extends Scene {
     int y = qbtstartY;
     byte[] qbrt;
 
-    static final byte[] tilemap = new byte[] {
+    public static final byte[] tilemap = new byte[] {
             0,0,0,0,0,0,0,
              0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,
@@ -32,8 +32,8 @@ public class QbertScene extends Scene {
     }
 
     public void respawnQbt(){
-        x = this.qbtstartX;
-        y = this.qbtstartY;
+        x = qbtstartX;
+        y = qbtstartY;
     }
 
     @Override
