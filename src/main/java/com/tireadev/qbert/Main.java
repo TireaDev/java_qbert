@@ -3,9 +3,8 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
-import java.util.Locale;
-
-import static com.tireadev.qbert.Main.*;
+import static com.tireadev.qbert.Main.scale;
+import static com.tireadev.qbert.Main.atlas;
 
 public class Main extends ShadowEngine {
 
@@ -94,10 +93,10 @@ class MapScene extends Scene {
 
     @Override
     public void onAwake() {
-        blocks[1] = se.loadImage(path_atlas, 0, 5*32, 32, 32);
-        blocks[2] = se.loadImage(path_atlas, 0, 6*32, 32, 32);
-        blocks[3] = se.loadImage(path_atlas, 0, 7*32, 32, 32);
-        blocks[0] = se.loadImage(path_atlas, 0, 9*32, 32, 32);
+        blocks[1] = se.getSubImage(atlas, 0, 5*32, 32, 32);
+        blocks[2] = se.getSubImage(atlas, 0, 6*32, 32, 32);
+        blocks[3] = se.getSubImage(atlas, 0, 7*32, 32, 32);
+        blocks[0] = se.getSubImage(atlas, 0, 9*32, 32, 32);
     }
 
     @Override
