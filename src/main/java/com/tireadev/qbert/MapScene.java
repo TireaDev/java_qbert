@@ -12,8 +12,8 @@ public class MapScene extends Scene {
 
     byte[][] blocks = new byte[4][];
 
-    final byte mapWidth = 7;
-    final byte[] map = new byte[] {
+    static final byte mapWidth = 7;
+    static final byte[] map = new byte[] {
             0,0,0,1,0,0,0,
             0,0,1,1,0,0,0,
             0,0,1,1,1,0,0,
@@ -22,6 +22,10 @@ public class MapScene extends Scene {
             1,1,1,1,1,1,0,
             1,1,1,1,1,1,1
     };
+
+    public static void changeTile(int x, int y){
+        map[y*mapWidth + x] += 1;
+    }
 
     public MapScene(ShadowEngine instance) {
         super(instance);
