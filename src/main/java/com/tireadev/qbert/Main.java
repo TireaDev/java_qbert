@@ -5,17 +5,25 @@ import com.tireadev.shadowengine.ShadowEngine;
 
 public class Main extends ShadowEngine {
 
+    MainMenuScene mainMenuScene;
+    GameOverScene gameOverScene;
+
     static final byte scale = 2, tile = 32;
+
     static byte[] atlas;
 
-    Scene gameScene;
+    GameScene gameScene;
 
     @Override
     public void onAwake() {
         atlas = loadImage("src/main/resources/textures/atlas.png");
 
+        mainMenuScene = new MainMenuScene(this);
+        gameOverScene = new GameOverScene(this);
         gameScene = new GameScene(this);
-
+        
+        mainMenuScene.onAwake();
+        gameOverScene.onAwake();
         gameScene.onAwake();
     }
 
@@ -32,6 +40,23 @@ public class Main extends ShadowEngine {
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
+
+        if (keyPressed('B') || gameScene.isDead) gameOverScene.setActive();
+        if (keyPressed('M')) {
+            mainMenuScene.setActive();
+            gameScene.isDead = false;
+
+            gameScene.qbertScene.respawnQbt();
+            gameScene.enemyScene.resetEnemyXY();
+        }
+        if (keyPressed('N')) {
+            gameScene.setActive();
+            gameScene.isDead = false;
+
+            gameScene.qbertScene.respawnQbt();
+            gameScene.enemyScene.resetEnemyXY();
+        }
+
     }
 
     @Override
@@ -39,9 +64,12 @@ public class Main extends ShadowEngine {
 
     }
 
+  
     public static void main(String[] args) {
         Main main = new Main();
         if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
             main.start();
     }
 }
+
+
