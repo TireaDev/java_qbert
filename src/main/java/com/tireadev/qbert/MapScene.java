@@ -15,11 +15,11 @@ public class MapScene extends Scene {
     static final byte mapWidth = 7;
     static final byte[] map = new byte[] {
             0,0,0,1,0,0,0,
-             0,0,1,1,0,0,0,
+            0,0,1,1,0,0,0,
             0,0,1,1,1,0,0,
-             0,1,1,1,1,0,0,
+            0,1,1,1,1,0,0,
             0,1,1,1,1,1,0,
-             1,1,1,1,1,1,0,
+            1,1,1,1,1,1,0,
             1,1,1,1,1,1,1
     };
 

@@ -23,7 +23,7 @@ public class EnemyScene extends Scene {
 
     static final byte mapWidth = 7;
 
-    static final byte[] enemies = new byte[] {
+    public static final byte[] enemies = new byte[] {
             0,0,0,1,0,0,0,
              0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,
