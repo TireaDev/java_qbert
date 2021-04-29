@@ -1,27 +1,35 @@
 package com.tireadev.qbert;
 
+import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
 public class Main extends ShadowEngine {
 
-    static final byte scale = 4, tile = 32;
+    MainMenuScene mainMenuScene;
+    GameOverScene gameOverScene;
+
+    static final byte scale = 2, tile = 32;
+
     static byte[] atlas;
 
     GameScene gameScene;
 
     @Override
     public void onAwake() {
-        atlas = loadImage("src/main/resources/textures/atlas.png");
+        atlas = loadImage(path_atlas);
 
+        mainMenuScene = new MainMenuScene(this);
+        gameOverScene = new GameOverScene(this);
         gameScene = new GameScene(this);
-
+        
+        mainMenuScene.onAwake();
+        gameOverScene.onAwake();
         gameScene.onAwake();
-
     }
 
     @Override
     public void onStart() {
-
+        gameScene.setActive();
     }
 
     @Override
@@ -31,7 +39,12 @@ public class Main extends ShadowEngine {
 
         clear(BLACK);
 
-        gameScene.onUpdate(deltaTime);
+        Scene.active.onUpdate(deltaTime);
+
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed('N')) gameScene.setActive();
+
     }
 
     @Override
@@ -39,6 +52,7 @@ public class Main extends ShadowEngine {
 
     }
 
+  
     public static void main(String[] args) {
         Main main = new Main();
         if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
