@@ -3,20 +3,20 @@ package com.tireadev.qbert;
 import com.tireadev.shadowengine.Scene;
 import com.tireadev.shadowengine.ShadowEngine;
 
-import javax.swing.*;
-
-import static com.tireadev.qbert.Main.path_atlas;
-import static com.tireadev.qbert.Main.path_prefix;
+import static com.tireadev.qbert.Main.atlas;
 
 public class Main extends ShadowEngine {
 
     static final byte scale = 2, tile = 32;
     static final String path_prefix = "src/main/resources/";
     static final String path_atlas = path_prefix + "textures/atlas.png";
+    static byte[] atlas;
+
     EnemyScene en;
 
     @Override
     public void onAwake() {
+        atlas = loadImage(path_atlas);
 
         new MapScene(this).setActive();
         en = new EnemyScene(this);
@@ -81,10 +81,10 @@ class MapScene extends Scene {
 
     @Override
     public void onAwake() {
-        blocks[1] = se.loadImage(path_atlas, 0, 5*32, 32, 32);
-        blocks[2] = se.loadImage(path_atlas, 0, 6*32, 32, 32);
-        blocks[3] = se.loadImage(path_atlas, 0, 7*32, 32, 32);
-        blocks[0] = se.loadImage(path_atlas, 0, 9*32, 32, 32);
+        blocks[1] = se.getSubImage(atlas, 0, 5*32, 32, 32);
+        blocks[2] = se.getSubImage(atlas, 0, 6*32, 32, 32);
+        blocks[3] = se.getSubImage(atlas, 0, 7*32, 32, 32);
+        blocks[0] = se.getSubImage(atlas, 0, 9*32, 32, 32);
     }
 
     @Override
@@ -143,7 +143,7 @@ class EnemyScene extends Scene{
 
     @Override
     public void onAwake() {
-        enemies[0] = se.loadImage(path_atlas, 5*16, 16, 16, 16);
+        enemies[0] = se.getSubImage(atlas, 5*16, 16, 16, 16);
     }
 
     @Override
