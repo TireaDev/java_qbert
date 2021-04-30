@@ -35,7 +35,7 @@ public class GameScene extends Scene {
         qbertScene.onUpdate(deltaTime);
 
         if (qbertScene.x == enemyScene.enemyX && qbertScene.y == enemyScene.enemyY) {
-            System.out.println("cilloded");
+            System.out.println("collided");
         }
 
         if(instance.mousePressed(0)){
