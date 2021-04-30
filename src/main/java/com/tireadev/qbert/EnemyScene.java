@@ -35,12 +35,11 @@ public class EnemyScene extends Scene {
 
     public EnemyScene(ShadowEngine instance) {
         super(instance);
-        this.se = this.instance;
     }
 
     public void resetEnemyXY(){
-        this.enemyX = this.enemyStartX;
-        this.enemyY = this.enemyStartY;
+        enemyX = enemyStartX;
+        enemyY = enemyStartY;
     }
 
     public void checkCollisions(){
@@ -49,6 +48,8 @@ public class EnemyScene extends Scene {
 
     @Override
     public void onAwake() {
+        se = this.instance;
+
         enemy[1] = se.getSubImage(atlas, 5*16, 1*16, 16, 16);
         enemy[0] = se.getSubImage(atlas, 6*16, 1*16, 16, 16);
     }
@@ -58,12 +59,12 @@ public class EnemyScene extends Scene {
 
         if(delay == 60){
             if(enemyY == 6){
-                this.enemies[enemyY * 7 + enemyX] = 0;
+                enemies[enemyY * 7 + enemyX] = 0;
                 resetEnemyXY();
-                this.enemies[enemyY * 7 + enemyX] = 1;
+                enemies[enemyY * 7 + enemyX] = 1;
             }else{
-                this.enemyDirection = (int)(Math.random()*2);
-                this.enemies[enemyY * 7 + enemyX] = 0;
+                enemyDirection = (int)(Math.random()*2);
+                enemies[enemyY * 7 + enemyX] = 0;
                 if(enemyDirection == 1){ // 1 = right, 0 = left
                     enemyY++;
                     if(eo == 1){ // 0 = even, 1 = odd
@@ -82,7 +83,7 @@ public class EnemyScene extends Scene {
                     }
                 }
 
-                this.enemies[enemyY * 7 + enemyX] = 1;
+                enemies[enemyY * 7 + enemyX] = 1;
             }
             delay = 0;
         }else {

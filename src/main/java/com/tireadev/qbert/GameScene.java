@@ -12,7 +12,6 @@ public class GameScene extends Scene {
 
 
     static int score = 0;
-    boolean isDead;
 
     public GameScene(ShadowEngine instance) {
         super(instance);
@@ -27,8 +26,6 @@ public class GameScene extends Scene {
         mapScene.onAwake();
         enemyScene.onAwake();
         qbertScene.onAwake();
-
-        isDead = false;
     }
 
     @Override
@@ -38,7 +35,7 @@ public class GameScene extends Scene {
         qbertScene.onUpdate(deltaTime);
 
         if (qbertScene.x == enemyScene.enemyX && qbertScene.y == enemyScene.enemyY) {
-            isDead = true;
+            System.out.println("cilloded");
         }
 
         if(instance.mousePressed(0)){

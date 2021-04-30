@@ -41,21 +41,9 @@ public class Main extends ShadowEngine {
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('B') || gameScene.isDead) gameOverScene.setActive();
-        if (keyPressed('M')) {
-            mainMenuScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
-        if (keyPressed('N')) {
-            gameScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed('N')) gameScene.setActive();
 
     }
 
