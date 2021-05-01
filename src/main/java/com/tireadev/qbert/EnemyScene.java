@@ -1,14 +1,10 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.*;
-import static com.tireadev.qbert.Main.scale;
 
 public class EnemyScene extends Scene {
-
-    ShadowEngine se;
 
     final int enemyStartX = 3;
     final int enemyStartY = 0;
@@ -33,10 +29,6 @@ public class EnemyScene extends Scene {
             0,0,0,0,0,0,0
     };
 
-    public EnemyScene(ShadowEngine instance) {
-        super(instance);
-    }
-
     public void resetEnemyXY(){
         enemyX = enemyStartX;
         enemyY = enemyStartY;
@@ -48,10 +40,8 @@ public class EnemyScene extends Scene {
 
     @Override
     public void onAwake() {
-        se = this.instance;
-
-        enemy[1] = se.getSubImage(atlas, 5*16, 1*16, 16, 16);
-        enemy[0] = se.getSubImage(atlas, 6*16, 1*16, 16, 16);
+        enemy[1] = getSubImage(atlas, 5*16, 1*16, 16, 16);
+        enemy[0] = getSubImage(atlas, 6*16, 1*16, 16, 16);
     }
 
     @Override
@@ -104,7 +94,7 @@ public class EnemyScene extends Scene {
                     int ty = y * oy + (tile * scale * 5/4);
 
                     if (val >= enemy.length) val = 0;
-                    se.drawImage(tx+16, ty-8, enemy[val], scale);
+                    drawImage(tx+16, ty-8, enemy[val], scale);
                 }
             }
         }

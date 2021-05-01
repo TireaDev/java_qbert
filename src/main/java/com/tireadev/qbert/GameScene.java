@@ -1,7 +1,8 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
+
+import static com.tireadev.qbert.Main.*;
 
 public class GameScene extends Scene {
 
@@ -9,19 +10,14 @@ public class GameScene extends Scene {
     EnemyScene enemyScene;
     QbertScene qbertScene;
 
-
-
     static int score = 0;
 
-    public GameScene(ShadowEngine instance) {
-        super(instance);
-    }
 
     @Override
     public void onAwake() {
-        mapScene = new MapScene(instance);
-        enemyScene = new EnemyScene(instance);
-        qbertScene = new QbertScene(instance);
+        mapScene = new MapScene();
+        enemyScene = new EnemyScene();
+        qbertScene = new QbertScene();
 
         mapScene.onAwake();
         enemyScene.onAwake();
@@ -38,11 +34,11 @@ public class GameScene extends Scene {
             System.out.println("collided");
         }
 
-        if(instance.mousePressed(0)){
+        if(mousePressed(0)){
            addScore(25);
         }
 
-        if(instance.mousePressed(1)) {
+        if(mousePressed(1)) {
             System.out.println("score: " + score);
         }
     }
