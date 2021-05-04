@@ -1,14 +1,10 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.*;
-import static com.tireadev.qbert.Main.scale;
 
 public class QbertScene extends Scene {
-
-    ShadowEngine se;
 
     final int qbtstartX = 2;
     final int qbtstartY = 3;
@@ -27,10 +23,6 @@ public class QbertScene extends Scene {
             0,0,0,0,0,0,0
     };
 
-    public QbertScene(ShadowEngine instance) {
-        super(instance);
-    }
-
     public void respawnQbt(){
         x = qbtstartX;
         y = qbtstartY;
@@ -38,9 +30,7 @@ public class QbertScene extends Scene {
 
     @Override
     public void onAwake() {
-        se = instance;
-
-        qbrt = se.getSubImage(atlas, 5*16, 0, 16, 16);
+        qbrt = getSubImage(atlas, 5*16, 0, 16, 16);
     }
 
     boolean isEven;
@@ -55,7 +45,7 @@ public class QbertScene extends Scene {
 
         isEven = (y * 7 + 1) % 2 == 0;
 
-        if (instance.keyPressed('W')){
+        if (keyPressed('W')){
             if (isEven) {
                 // nahoru
                 if (y > 0) y -= 1;
@@ -68,7 +58,7 @@ public class QbertScene extends Scene {
             }
         }
 
-        else if (instance.keyPressed('S')){
+        else if (keyPressed('S')){
             if (isEven) {
                 // doprava
                 if (y < 6 && x < 6) x += 1;
@@ -81,7 +71,7 @@ public class QbertScene extends Scene {
             }
         }
 
-        else if (instance.keyPressed('A')){
+        else if (keyPressed('A')){
             if (isEven) {
                 // dolů
                 if (y < 6) y += 1;
@@ -94,7 +84,7 @@ public class QbertScene extends Scene {
             }
         }
 
-        else if (instance.keyPressed('D')){
+        else if (keyPressed('D')){
             if (isEven) {
                 // doprava
                 if (y > 0 && x < 6) x += 1;
@@ -120,7 +110,7 @@ public class QbertScene extends Scene {
                     int tx = x * tile * scale + ox;
                     int ty = y * oy + (tile * scale * 5/4) - (tile/4*scale);
 
-                    se.drawImage(tx, ty, qbrt, scale);
+                    drawImage(tx, ty, qbrt, scale);
                 }
             }
         }
