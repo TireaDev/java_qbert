@@ -6,18 +6,19 @@ import static com.tireadev.qbert.Main.*;
 
 public class GameOverScene extends Scene {
 
-    byte[][] chars = new byte['Z'-44+1][];
+    byte[][] chars = new byte['Z' - 44 + 1][];
 
     @Override
     public void onAwake() {
         chars[0] = getSubImage(atlas, 0, 0, 8, 8);
-        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = getSubImage(atlas,128+8*(i-'A'+44),64+8,8,8);
+        for (int i = 'A' - 44; i <= 'Z' - 44; i++)
+            chars[i] = getSubImage(atlas, 128 + 8 * (i - 'A' + 44), 64 + 8, 8, 8);
     }
 
     @Override
     public void onUpdate(float v) {
-        drawText("GAME  OVER", (16*5)*scale, (16*6)*scale, chars, 44, scale, true);
-        drawText("Continue A", (16*5)*scale, (16*8)*scale, chars, 44, scale, true);
-        drawText("Game end B", (16*5)*scale, (16*9)*scale, chars, 44, scale, true);
+        drawText("GAME  OVER", (16 * 5) * scale, (16 * 6) * scale, chars, 44, scale, true);
+        drawText("Continue A", (16 * 5) * scale, (16 * 8) * scale, chars, 44, scale, true);
+        drawText("Game end B", (16 * 5) * scale, (16 * 9) * scale, chars, 44, scale, true);
     }
 }

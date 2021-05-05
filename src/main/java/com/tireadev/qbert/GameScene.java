@@ -12,7 +12,6 @@ public class GameScene extends Scene {
 
     static int score = 0;
 
-
     @Override
     public void onAwake() {
         mapScene = new MapScene();
@@ -34,16 +33,16 @@ public class GameScene extends Scene {
             System.out.println("collided");
         }
 
-        if(mousePressed(0)){
-           addScore(25);
+        if (mousePressed(0)) {
+            addScore(25);
         }
 
-        if(mousePressed(1)) {
+        if (mousePressed(1)) {
             System.out.println("score: " + score);
         }
     }
 
-    public static void addScore(int i){
+    public static void addScore(int i) {
         score += i;
     }
 

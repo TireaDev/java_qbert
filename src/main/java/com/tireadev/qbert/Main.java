@@ -21,7 +21,7 @@ public class Main extends ShadowEngine {
         mainMenuScene = new MainMenuScene();
         gameOverScene = new GameOverScene();
         gameScene = new GameScene();
-        
+
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
         gameScene.onAwake();
@@ -29,22 +29,26 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-//        gameScene.setActive();
+        // gameScene.setActive();
         mainMenuScene.setActive();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
 
-        if (keyPressed(256)) close();
+        if (keyPressed(256))
+            close();
 
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('B')) gameOverScene.setActive();
-        if (keyPressed('M')) mainMenuScene.setActive();
-        if (keyPressed('N')) gameScene.setActive();
+        if (keyPressed('B'))
+            gameOverScene.setActive();
+        if (keyPressed('M'))
+            mainMenuScene.setActive();
+        if (keyPressed('N'))
+            gameScene.setActive();
 
     }
 
@@ -53,12 +57,9 @@ public class Main extends ShadowEngine {
 
     }
 
-  
     public static void main(String[] args) {
         Main main = new Main();
-        if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
+        if (main.construct(256 * scale, 240 * scale, "Q*Bert", true, false))
             main.start();
     }
 }
-
-
