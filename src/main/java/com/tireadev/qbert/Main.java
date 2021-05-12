@@ -46,15 +46,15 @@ public class Main extends ShadowEngine {
             mainMenuScene.setActive();
             gameScene.isDead = false;
 
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
+            gameScene.charsScene.respawnQbt();
+            gameScene.charsScene.resetEnemy();
         }
         if (keyPressed('N')) {
             gameScene.setActive();
             gameScene.isDead = false;
 
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
+            gameScene.charsScene.respawnQbt();
+            gameScene.charsScene.resetEnemy();
         }
 
     }
