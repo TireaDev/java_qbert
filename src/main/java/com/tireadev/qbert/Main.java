@@ -36,15 +36,18 @@ public class Main extends ShadowEngine {
     @Override
     public void onUpdate(float deltaTime) {
 
-        if (keyPressed(256)) close();
+
 
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
 
+        // enter = 257
+
         if (keyPressed('B')) gameOverScene.setActive();
         if (keyPressed('M')) mainMenuScene.setActive();
-        if (keyPressed('N')) gameScene.setActive();
+        if (keyPressed(257)&&(mainMenuScene.cursorPosition == 0)) gameScene.setActive();
+        else if (keyPressed(257)&&(mainMenuScene.cursorPosition == 1)) close();
 
     }
 
