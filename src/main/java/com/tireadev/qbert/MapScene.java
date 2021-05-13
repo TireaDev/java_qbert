@@ -1,14 +1,10 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.*;
-import static com.tireadev.qbert.Main.scale;
 
 public class MapScene extends Scene {
-
-    ShadowEngine se;
 
     byte[][] blocks = new byte[4][];
 
@@ -27,21 +23,18 @@ public class MapScene extends Scene {
         map[y*mapWidth + x] += 1;
     }
 
-    public MapScene(ShadowEngine instance) {
-        super(instance);
-        this.se = this.instance;
-    }
-
     @Override
     public void onAwake() {
-        blocks[1] = se.getSubImage(atlas, 0, 5*32, 32, 32);
-        blocks[2] = se.getSubImage(atlas, 0, 6*32, 32, 32);
-        blocks[3] = se.getSubImage(atlas, 0, 7*32, 32, 32);
-        blocks[0] = se.getSubImage(atlas, 0, 9*32, 32, 32);
+        blocks[1] = getSubImage(atlas, 0, 5*32, 32, 32);
+        blocks[2] = getSubImage(atlas, 0, 6*32, 32, 32);
+        blocks[3] = getSubImage(atlas, 0, 7*32, 32, 32);
+        blocks[0] = getSubImage(atlas, 0, 9*32, 32, 32);
     }
 
     @Override
     public void onUpdate(float deltaTime) {
+
+
         for (int y = 0; y < mapWidth; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 int val = map[y * mapWidth + x];
@@ -56,7 +49,7 @@ public class MapScene extends Scene {
                     int ty = y * oy + (tile * scale * 5/4);
 
                     if (val >= blocks.length) val = 0;
-                    se.drawImage(tx, ty, blocks[val], scale);
+                    drawImage(tx, ty, blocks[val], scale);
                 }
             }
         }

@@ -18,9 +18,9 @@ public class Main extends ShadowEngine {
     public void onAwake() {
         atlas = loadImage("src/main/resources/textures/atlas.png");
 
-        mainMenuScene = new MainMenuScene(this);
-        gameOverScene = new GameOverScene(this);
-        gameScene = new GameScene(this);
+        mainMenuScene = new MainMenuScene();
+        gameOverScene = new GameOverScene();
+        gameScene = new GameScene();
         
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
@@ -29,7 +29,8 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-        gameScene.setActive();
+//        gameScene.setActive();
+        mainMenuScene.setActive();
     }
 
     @Override
@@ -41,21 +42,9 @@ public class Main extends ShadowEngine {
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('B') || gameScene.isDead) gameOverScene.setActive();
-        if (keyPressed('M')) {
-            mainMenuScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
-        if (keyPressed('N')) {
-            gameScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed('N')) gameScene.setActive();
 
     }
 
