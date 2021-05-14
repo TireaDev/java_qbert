@@ -14,6 +14,12 @@ public class Main extends ShadowEngine {
 
     GameScene gameScene;
 
+    public static final int KEY_ENTER = 257;
+    public static final int KEY_UP    = 262;
+    public static final int KEY_DOWN  = 263;
+    public static final int KEY_LEFT  = 264;
+    public static final int KEY_RIGHT = 265;
+
     @Override
     public void onAwake() {
         atlas = loadImage("src/main/resources/textures/atlas.png");
@@ -41,13 +47,19 @@ public class Main extends ShadowEngine {
 
         Scene.active.onUpdate(deltaTime);
 
-        // enter = 257
-
         if (keyPressed('B')) gameOverScene.setActive();
         if (keyPressed('M')) mainMenuScene.setActive();
         
-        if      (keyPressed(257) && (mainMenuScene.cursorPosition == 0) && Scene.active.equals(mainMenuScene)) gameScene.setActive();
-        else if (keyPressed(257) && (mainMenuScene.cursorPosition == 1) && Scene.active.equals(mainMenuScene)) close();
+        if (
+                keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 0)
+                && Scene.active.equals(mainMenuScene)
+        ) gameScene.setActive();
+        else if (
+                keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 1)
+                && Scene.active.equals(mainMenuScene)
+        ) close();
 
     }
 

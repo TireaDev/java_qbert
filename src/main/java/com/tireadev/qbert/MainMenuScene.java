@@ -39,14 +39,9 @@ public class MainMenuScene extends Scene {
         drawText("TRADEMARK OF ULTRA SOFTWARE", 16 * scale, 13 * 16 * scale, chars, 44, scale, true);
         drawText("CORPORATION.", 16 * scale, (13 * 16 * scale) + 16, chars, 44, scale, true);
 
-        // right 262
-        // left 263
-        // down 264
-        // up 265
-
-        if ((keyPressed(264) || keyPressed('S')) && (cursorPosition == 0))
+        if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0))
             cursorPosition++;
-        if ((keyPressed(265) || keyPressed('W')) && (cursorPosition == 1))
+        if ((keyPressed(KEY_UP) || keyPressed('W')) && (cursorPosition == 1))
             cursorPosition--;
 
         drawImage((5 * 16 + 8) * scale, (16 * (7 + cursorPosition)) * scale, bertHimself, scale);
