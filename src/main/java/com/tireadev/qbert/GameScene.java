@@ -9,6 +9,7 @@ public class GameScene extends Scene {
     MapScene mapScene;
     EnemyScene enemyScene;
     QbertScene qbertScene;
+    GameUIScene gameUIScene;
 
     static int score = 0;
 
@@ -17,10 +18,13 @@ public class GameScene extends Scene {
         mapScene = new MapScene();
         enemyScene = new EnemyScene();
         qbertScene = new QbertScene();
+        gameUIScene = new GameUIScene();
+
 
         mapScene.onAwake();
         enemyScene.onAwake();
         qbertScene.onAwake();
+        gameUIScene.onAwake();
     }
 
     @Override
@@ -28,6 +32,7 @@ public class GameScene extends Scene {
         mapScene.onUpdate(deltaTime);
         enemyScene.onUpdate(deltaTime);
         qbertScene.onUpdate(deltaTime);
+        gameUIScene.onUpdate(deltaTime);
 
         if (qbertScene.x == enemyScene.enemyX && qbertScene.y == enemyScene.enemyY) {
             System.out.println("collided");
