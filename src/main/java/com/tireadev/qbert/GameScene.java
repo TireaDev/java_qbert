@@ -1,45 +1,48 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
+
+import static com.tireadev.qbert.Main.*;
 
 public class GameScene extends Scene {
 
     MapScene mapScene;
-    CharsScene charsScene;
+    //EnemyScene enemyScene;
+    //QbertScene qbertScene;
+    EntityScene entityScene;
 
     static int score = 0;
-    boolean isDead;
 
-    public GameScene(ShadowEngine instance) {
-        super(instance);
-    }
 
     @Override
     public void onAwake() {
-        mapScene = new MapScene(instance);
-        charsScene = new CharsScene(instance);
+        mapScene = new MapScene();
+        //enemyScene = new EnemyScene();
+        //qbertScene = new QbertScene();
+        entityScene = new EntityScene();
 
         mapScene.onAwake();
-        charsScene.onAwake();
-
-        isDead = false;
+        //enemyScene.onAwake();
+        //qbertScene.onAwake();
+        entityScene.onAwake();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
         mapScene.onUpdate(deltaTime);
-        charsScene.onUpdate(deltaTime);
+        //enemyScene.onUpdate(deltaTime);
+        //qbertScene.onUpdate(deltaTime);
+        entityScene.onUpdate(deltaTime);
 
-        if (charsScene.qbtX == charsScene.enemyX && charsScene.qbtY == charsScene.enemyY) {
-            isDead = true;
+        if (entityScene.qPos.x == entityScene.ePos.x && entityScene.qPos.y == entityScene.ePos.y) {
+            System.out.println("collided");
         }
 
-        if(instance.mousePressed(0)){
+        if(mousePressed(0)){
            addScore(25);
         }
 
-        if(instance.mousePressed(1)) {
+        if(mousePressed(1)) {
             System.out.println("score: " + score);
         }
     }
