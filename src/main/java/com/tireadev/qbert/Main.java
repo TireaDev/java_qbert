@@ -14,11 +14,12 @@ public class Main extends ShadowEngine {
 
     GameScene gameScene;
 
+    public static final int KEY_ESC   = 256;
     public static final int KEY_ENTER = 257;
-    public static final int KEY_UP    = 262;
-    public static final int KEY_DOWN  = 263;
-    public static final int KEY_LEFT  = 264;
-    public static final int KEY_RIGHT = 265;
+    public static final int KEY_RIGHT = 262;
+    public static final int KEY_LEFT  = 263;
+    public static final int KEY_DOWN  = 264;
+    public static final int KEY_UP    = 265;
 
     @Override
     public void onAwake() {
