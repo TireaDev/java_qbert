@@ -10,8 +10,6 @@ import static com.tireadev.shadowengine.ShadowEngine.instance;
 
 public class EntityScene extends Scene{
 
-    ShadowEngine se;
-
     Vec2i qPos = new Vec2i(2, 3);
     Vec2i ePos = new Vec2i(3, 0);
     Vec2i dir = new Vec2i();
@@ -19,8 +17,7 @@ public class EntityScene extends Scene{
     boolean isEven;
     int delay = 0;
     int[] enemyDirection = {-1, 1};
-
-    byte cQMW = 3;
+    int x, y;
 
     byte[][] entity = new byte[3][];
 
@@ -40,23 +37,30 @@ public class EntityScene extends Scene{
     }
 
     public void respawnQbt(){
-        qPos.x = 3;
-        qPos.y = 0;
+        qPos.x = 2;
+        qPos.y = 3;
     }
 
     void move(Vec2i pos, Vec2i dir){
         isEven = (pos.y * MapScene.mapWidth + 1) % 2 == 0;
 
-        pos.y += dir.y;
+        y = pos.y + dir.y;
         if(isEven && dir.x == 1 || !isEven && dir.x == -1){
-            pos.x += dir.x;
+            x = pos.x + dir.x;
+        }else{
+            x = pos.x;
+        }
+
+        if(MapScene.map[y * MapScene.mapWidth + x] > 0){
+            pos.x = x;
+            pos.y = y;
         }
     }
 
     @Override
     public void onAwake() {
-        entity[1] = se.getSubImage(atlas, 5*16, 0, 16, 16);
-        entity[2] = se.getSubImage(atlas, 5*16, 1*16, 16, 16);
+        entity[1] = getSubImage(atlas, 5*16, 0, 16, 16);
+        entity[2] = getSubImage(atlas, 5*16, 1*16, 16, 16);
     }
 
     @Override
@@ -115,7 +119,7 @@ public class EntityScene extends Scene{
                     int ty = y * oy + (tile * scale * 5/4);
 
                     if (val >= entity.length) val = 0;
-                    se.drawImage(tx+16, ty-8, entity[val], scale);
+                    drawImage(tx+16, ty-8, entity[val], scale);
                 }
             }
         }
