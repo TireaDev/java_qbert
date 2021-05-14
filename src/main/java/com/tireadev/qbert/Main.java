@@ -14,14 +14,20 @@ public class Main extends ShadowEngine {
 
     GameScene gameScene;
 
+    public static final int KEY_ENTER = 257;
+    public static final int KEY_UP    = 262;
+    public static final int KEY_DOWN  = 263;
+    public static final int KEY_LEFT  = 264;
+    public static final int KEY_RIGHT = 265;
+
     @Override
     public void onAwake() {
         atlas = loadImage("src/main/resources/textures/atlas.png");
 
-        mainMenuScene = new MainMenuScene(this);
-        gameOverScene = new GameOverScene(this);
-        gameScene = new GameScene(this);
-        
+        mainMenuScene = new MainMenuScene();
+        gameOverScene = new GameOverScene();
+        gameScene = new GameScene();
+
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
         gameScene.onAwake();
@@ -29,33 +35,31 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-        gameScene.setActive();
+        // gameScene.setActive();
+        mainMenuScene.setActive();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
 
-        if (keyPressed(256)) close();
 
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);
 
-        if (keyPressed('B') || gameScene.isDead) gameOverScene.setActive();
-        if (keyPressed('M')) {
-            mainMenuScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
-        if (keyPressed('N')) {
-            gameScene.setActive();
-            gameScene.isDead = false;
-
-            gameScene.qbertScene.respawnQbt();
-            gameScene.enemyScene.resetEnemyXY();
-        }
+        if (keyPressed('B')) gameOverScene.setActive();
+        if (keyPressed('M')) mainMenuScene.setActive();
+        
+        if (
+                keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 0)
+                && Scene.active.equals(mainMenuScene)
+        ) gameScene.setActive();
+        else if (
+                keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 1)
+                && Scene.active.equals(mainMenuScene)
+        ) close();
 
     }
 
@@ -64,12 +68,9 @@ public class Main extends ShadowEngine {
 
     }
 
-  
     public static void main(String[] args) {
         Main main = new Main();
-        if (main.construct(256*scale, 240*scale, "Q*Bert", true, false))
+        if (main.construct(256 * scale, 240 * scale, "Q*Bert", true, false))
             main.start();
     }
 }
-
-

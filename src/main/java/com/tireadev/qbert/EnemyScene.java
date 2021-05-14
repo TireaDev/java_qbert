@@ -1,14 +1,10 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
 
 import static com.tireadev.qbert.Main.*;
-import static com.tireadev.qbert.Main.scale;
 
 public class EnemyScene extends Scene {
-
-    ShadowEngine se;
 
     final int enemyStartX = 3;
     final int enemyStartY = 0;
@@ -23,69 +19,58 @@ public class EnemyScene extends Scene {
 
     static final byte mapWidth = 7;
 
-    public static final byte[] enemies = new byte[] {
-            0,0,0,1,0,0,0,
-             0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,
-             0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,
-             0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0
-    };
+    public static final byte[] enemies = new byte[mapWidth * mapWidth];
 
-    public EnemyScene(ShadowEngine instance) {
-        super(instance);
-        this.se = this.instance;
+    public void resetEnemyXY() {
+        enemyX = enemyStartX;
+        enemyY = enemyStartY;
     }
 
-    public void resetEnemyXY(){
-        this.enemyX = this.enemyStartX;
-        this.enemyY = this.enemyStartY;
-    }
-
-    public void checkCollisions(){
+    public void checkCollisions() {
 
     }
 
     @Override
     public void onAwake() {
-        enemy[1] = se.getSubImage(atlas, 5*16, 1*16, 16, 16);
-        enemy[0] = se.getSubImage(atlas, 6*16, 1*16, 16, 16);
+        enemy[1] = getSubImage(atlas, 5 * 16, 1 * 16, 16, 16);
+        enemy[0] = getSubImage(atlas, 6 * 16, 1 * 16, 16, 16);
+
+        enemies[3] = 1;
     }
 
     @Override
     public void onUpdate(float v) {
 
-        if(delay == 60){
-            if(enemyY == 6){
-                this.enemies[enemyY * 7 + enemyX] = 0;
+        if (delay == 60) {
+            if (enemyY == 6) {
+                enemies[enemyY * 7 + enemyX] = 0;
                 resetEnemyXY();
-                this.enemies[enemyY * 7 + enemyX] = 1;
-            }else{
-                this.enemyDirection = (int)(Math.random()*2);
-                this.enemies[enemyY * 7 + enemyX] = 0;
-                if(enemyDirection == 1){ // 1 = right, 0 = left
+                enemies[enemyY * 7 + enemyX] = 1;
+            } else {
+                enemyDirection = (int) (Math.random() * 2);
+                enemies[enemyY * 7 + enemyX] = 0;
+                if (enemyDirection == 1) { // 1 = right, 0 = left
                     enemyY++;
-                    if(eo == 1){ // 0 = even, 1 = odd
+                    if (eo == 1) { // 0 = even, 1 = odd
                         enemyX++;
                         eo = 0;
-                    }else{
+                    } else {
                         eo = 1;
                     }
-                }else{
+                } else {
                     enemyY++;
-                    if(eo == 0){
+                    if (eo == 0) {
                         enemyX--;
                         eo = 1;
-                    }else{
+                    } else {
                         eo = 0;
                     }
                 }
 
-                this.enemies[enemyY * 7 + enemyX] = 1;
+                enemies[enemyY * 7 + enemyX] = 1;
             }
             delay = 0;
-        }else {
+        } else {
             delay++;
         }
 
@@ -94,16 +79,18 @@ public class EnemyScene extends Scene {
                 int val = enemies[y * mapWidth + x];
                 if (val > 0) {
 
-                    int ox = 0, oy = tile*3/4 * scale;
-                    if (y % 2 == 1) ox = tile/2 * scale;
+                    int ox = 0, oy = tile * 3 / 4 * scale;
+                    if (y % 2 == 1)
+                        ox = tile / 2 * scale;
 
-                    ox += tile/2 * scale;
+                    ox += tile / 2 * scale;
 
                     int tx = x * tile * scale + ox;
-                    int ty = y * oy + (tile * scale * 5/4);
+                    int ty = y * oy + (tile * scale * 5 / 4);
 
-                    if (val >= enemy.length) val = 0;
-                    se.drawImage(tx+16, ty-8, enemy[val], scale);
+                    if (val >= enemy.length)
+                        val = 0;
+                    drawImage(tx + 16, ty - 8, enemy[val], scale);
                 }
             }
         }
