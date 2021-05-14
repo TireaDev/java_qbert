@@ -45,8 +45,9 @@ public class Main extends ShadowEngine {
 
         if (keyPressed('B')) gameOverScene.setActive();
         if (keyPressed('M')) mainMenuScene.setActive();
-        if (keyPressed(257)&&(mainMenuScene.cursorPosition == 0)) gameScene.setActive();
-        else if (keyPressed(257)&&(mainMenuScene.cursorPosition == 1)) close();
+        
+        if      (keyPressed(257) && (mainMenuScene.cursorPosition == 0) && Scene.active.equals(mainMenuScene)) gameScene.setActive();
+        else if (keyPressed(257) && (mainMenuScene.cursorPosition == 1) && Scene.active.equals(mainMenuScene)) close();
 
     }
 
