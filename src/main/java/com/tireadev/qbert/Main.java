@@ -28,7 +28,6 @@ public class Main extends ShadowEngine {
         mainMenuScene = new MainMenuScene();
         gameOverScene = new GameOverScene();
         gameScene = new GameScene();
-
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
         gameScene.onAwake();
