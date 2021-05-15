@@ -2,8 +2,6 @@ package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
 
-import static com.tireadev.qbert.Main.*;
-
 public class GameScene extends Scene {
 
     MapScene mapScene;
