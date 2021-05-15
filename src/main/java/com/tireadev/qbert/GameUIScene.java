@@ -30,7 +30,7 @@ public class GameUIScene extends Scene {
 
         if (livesNum < 0) livesNum = 0;
         if (roundNum > 4) roundNum = 4;
-        if (levelNum > 4) levelNum = 4;
+        if (levelNum > 3) levelNum = 3;
         if (cubesVal > 2) cubesVal = 2;
 
 
