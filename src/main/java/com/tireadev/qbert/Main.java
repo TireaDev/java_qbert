@@ -28,7 +28,6 @@ public class Main extends ShadowEngine {
         mainMenuScene = new MainMenuScene();
         gameOverScene = new GameOverScene();
         gameScene = new GameScene();
-
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
         gameScene.onAwake();
@@ -49,7 +48,7 @@ public class Main extends ShadowEngine {
         Scene.active.onUpdate(deltaTime);
 
         if (keyPressed('B')) gameOverScene.setActive();
-        if (keyPressed('M')) mainMenuScene.setActive();
+        if (keyPressed(KEY_ESC)) mainMenuScene.setActive();
         
         if (
                 keyPressed(KEY_ENTER)

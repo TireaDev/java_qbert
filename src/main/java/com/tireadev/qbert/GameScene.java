@@ -7,48 +7,68 @@ import static com.tireadev.qbert.Main.*;
 public class GameScene extends Scene {
 
     MapScene mapScene;
-    EnemyScene enemyScene;
-    QbertScene qbertScene;
     GameUIScene gameUIScene;
+    EntityScene entityScene;
 
     static int score = 0;
+    static byte changeTo = 2;
 
     @Override
     public void onAwake() {
         mapScene = new MapScene();
-        enemyScene = new EnemyScene();
-        qbertScene = new QbertScene();
         gameUIScene = new GameUIScene();
+        entityScene = new EntityScene();
 
 
         mapScene.onAwake();
-        enemyScene.onAwake();
-        qbertScene.onAwake();
         gameUIScene.onAwake();
+        entityScene.onAwake();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
         mapScene.onUpdate(deltaTime);
-        enemyScene.onUpdate(deltaTime);
-        qbertScene.onUpdate(deltaTime);
         gameUIScene.onUpdate(deltaTime);
-
-        if (qbertScene.x == enemyScene.enemyX && qbertScene.y == enemyScene.enemyY) {
-            System.out.println("collided");
+        entityScene.onUpdate(deltaTime);
+        
+        for (int ii = 1; ii < entityScene.entities.length; ii++) {
+            if (
+                    entityScene.entities[0].pos.x == entityScene.entities[ii].pos.x
+                 && entityScene.entities[0].pos.y == entityScene.entities[ii].pos.y
+            ) {
+                System.out.println("collided with " + ii);
+                entityScene.entities[0].spawn();
+                gameUIScene.livesNum--;
+                return;
+            }
         }
-
-        if (mousePressed(0)) {
-            addScore(25);
+        
+        if (EntityScene.qbertJumped) {
+            if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
+                addScore(25, gameUIScene);
+            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
         }
-
-        if (mousePressed(1)) {
-            System.out.println("score: " + score);
+        
+        if (isCompleted()) {
+            System.out.println("Round " + (gameUIScene.roundNum) + " Completed");
+            
+            changeTo += 1;
+            if (changeTo > 4) changeTo = 1;
+            
+            gameUIScene.roundNum += 1;
         }
     }
-
-    public static void addScore(int i) {
-        score += i;
+    
+    public boolean isCompleted() {
+        for (int ii = 0; ii < MapScene.mapWidth*MapScene.mapWidth - 1; ii++) {
+            byte val = MapScene.map[ii];
+            if (val == (byte)0) continue;
+            if (val != (byte)changeTo) return false;
+        }
+        return true;
     }
 
+    public static void addScore(int i, GameUIScene guis) {
+        guis.score += i;
+    }
 }
