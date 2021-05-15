@@ -48,6 +48,24 @@ public class GameScene extends Scene {
                 addScore(25, gameUIScene);
             MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
         }
+        
+        if (isCompleted()) {
+            System.out.println("Round " + (gameUIScene.roundNum) + " Completed");
+            
+            changeTo += 1;
+            if (changeTo > 4) changeTo = 1;
+            
+            gameUIScene.roundNum += 1;
+        }
+    }
+    
+    public boolean isCompleted() {
+        for (int ii = 0; ii < MapScene.mapWidth*MapScene.mapWidth - 1; ii++) {
+            byte val = MapScene.map[ii];
+            if (val == (byte)0) continue;
+            if (val != (byte)changeTo) return false;
+        }
+        return true;
     }
 
     public static void addScore(int i, GameUIScene guis) {

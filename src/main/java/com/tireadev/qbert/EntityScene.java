@@ -33,7 +33,7 @@ public class EntityScene extends Scene{
         entities[1] = new Ball(new Vec2i(3, 0), redBallSprites);
         entities[2] = new Ball(new Vec2i(4, 4), purpleBallSprites);
         
-        entities[2].update(.3f);
+        entities[2].update(.6f);
     }
 
     @Override
