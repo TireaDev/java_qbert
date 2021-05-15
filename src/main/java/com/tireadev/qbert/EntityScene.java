@@ -76,16 +76,16 @@ class Qbert extends Entity {
         dir.x = 0;
         dir.y = 0;
     
-        if (keyPressed('W') && pos.y > 0 && pos.x >= 0){
+        if (       (keyPressed('W') || keyPressed(KEY_UP))    && pos.y > 0 && pos.x >= 0) {
             dir.x = -1;
             dir.y = -1;
-        }else if (keyPressed('S') && pos.y < 6 && pos.x < 6){
+        } else if ((keyPressed('S') || keyPressed(KEY_DOWN))  && pos.y < 6 && pos.x < 6) {
             dir.x = 1;
             dir.y = 1;
-        }else if (keyPressed('A') && pos.y < 6 && pos.x >= 0){
+        } else if ((keyPressed('A') || keyPressed(KEY_LEFT))  && pos.y < 6 && pos.x >= 0) {
             dir.x = -1;
             dir.y = 1;
-        }else if (keyPressed('D') && pos.y > 0 && pos.x < 6){
+        } else if ((keyPressed('D') || keyPressed(KEY_RIGHT)) && pos.y > 0 && pos.x < 6) {
             dir.x = 1;
             dir.y = -1;
         }

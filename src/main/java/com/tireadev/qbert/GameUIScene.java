@@ -6,19 +6,10 @@ import static com.tireadev.qbert.Main.*;
 
 public class GameUIScene extends Scene {
 
-    byte[] level;
-    byte[] round;
-    byte[] changeTo;
+    int score = 0, levelNum = 1, roundNum = 1, livesNum = 5, cubesVal = 0;
+    byte[] level, round, bertLives, changeTo, arrowL, arrowR;
     byte[][] cubes = new byte[3][];
     byte[][] chars = new byte['Z'-44+1][];
-    byte[] bertLives;
-    int score = 0;
-    int val = 0;
-    int livesNum = 5;
-    int roundNum = 1;
-    int levelNum = 1;
-    byte[] arrowL;
-    byte[] arrowR;
 
     public void onAwake(){
 
@@ -40,6 +31,7 @@ public class GameUIScene extends Scene {
         if (livesNum < 0) livesNum = 0;
         if (roundNum > 4) roundNum = 4;
         if (levelNum > 4) levelNum = 4;
+        if (cubesVal > 2) cubesVal = 2;
 
 
         drawImage((11 * 16 + 8) * scale, (32) * scale, level, scale);
@@ -56,10 +48,8 @@ public class GameUIScene extends Scene {
 
         drawImage((24) * scale, (40) * scale, arrowL, scale);
         drawImage((64) * scale, (40) * scale, arrowR, scale);
-
-
-        drawImage((40) * scale, (40) * scale, cubes[val], scale);
-        drawText("score", (16) * scale, (16) * scale, chars, 44, scale, true);
+        drawImage((40) * scale, (40) * scale, cubes[cubesVal], scale);
+        
         drawText(String.format("%05d", score), (24) * scale, (24) * scale, chars, 44, scale, true);
 
 
