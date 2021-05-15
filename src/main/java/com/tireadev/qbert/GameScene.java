@@ -12,6 +12,7 @@ public class GameScene extends Scene {
 
     static int score = 0;
     static byte changeTo = 2;
+    static byte changeBy = 1;
 
     @Override
     public void onAwake() {
@@ -46,16 +47,23 @@ public class GameScene extends Scene {
         if (EntityScene.qbertJumped) {
             if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
                 addScore(25, gameUIScene);
-            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
+            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, (byte)1, changeTo);
         }
         
         if (isCompleted()) {
-            System.out.println("Round " + (gameUIScene.roundNum) + " Completed");
+            System.out.println("Round " + (gameUIScene.roundNum) + " Level " + (gameUIScene.levelNum) + " Completed");
             
-            changeTo += 1;
-            if (changeTo > 4) changeTo = 1;
-            
+            changeTo += changeBy;
             gameUIScene.roundNum += 1;
+            
+            if (gameUIScene.roundNum > 4) {
+                gameUIScene.roundNum = 1;
+                gameUIScene.levelNum += 1;
+                changeBy += 1;
+                changeTo += 1;
+            }
+            
+            gameUIScene.cubesVal = (changeTo - 1) % 4;
         }
     }
     
