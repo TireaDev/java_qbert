@@ -29,26 +29,25 @@ public class GameScene extends Scene {
         mapScene.onUpdate(deltaTime);
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
-
-        if (
-                entityScene.entities[0].pos.x == entityScene.entities[1].pos.x
-             && entityScene.entities[0].pos.y == entityScene.entities[1].pos.y) {
-            System.out.println("collided");
-            entityScene.entities[0].spawn();
-            gameUIScene.livesNum--;
+        
+        for (int ii = 1; ii < entityScene.entities.length; ii++) {
+            if (
+                    entityScene.entities[0].pos.x == entityScene.entities[ii].pos.x
+                 && entityScene.entities[0].pos.y == entityScene.entities[ii].pos.y
+            ) {
+                System.out.println("collided");
+                entityScene.entities[0].spawn();
+                gameUIScene.livesNum--;
+                return;
+            }
         }
 
         if (mousePressed(0)) {
-            addScore(25);
-        }
-
-        if (mousePressed(1)) {
-            System.out.println("score: " + score);
+            addScore(25, gameUIScene);
         }
     }
 
-    public static void addScore(int i) {
-        score += i;
+    public static void addScore(int i, GameUIScene guis) {
+        guis.score += i;
     }
-
 }

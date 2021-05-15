@@ -9,23 +9,28 @@ import static com.tireadev.qbert.MapScene.mapWidth;
 public class EntityScene extends Scene{
 
 
-    byte[][] qbertSprites   = new byte[8][];
-    byte[][] redBallSprites = new byte[8][];
+    byte[][] qbertSprites      = new byte[8][];
+    byte[][] redBallSprites    = new byte[8][];
+    byte[][] purpleBallSprites = new byte[8][];
     
     public static byte[] tilemap = new byte[7*7];
     
-    Entity[] entities = new Entity[2];
+    Entity[] entities = new Entity[3];
 
     @Override
     public void onAwake() {
     
         for (int ii = 0; ii < 8; ii++) {
-            qbertSprites  [ii] = getSubImage(atlas, 16*ii, 0, 16, 16);
-            redBallSprites[ii] = getSubImage(atlas, 0, 16, 16, 16);
+            qbertSprites     [ii] = getSubImage(atlas, 16*ii       ,  0, 16, 16);
+            redBallSprites   [ii] = getSubImage(atlas, 16*(ii%2)   , 16, 16, 16);
+            purpleBallSprites[ii] = getSubImage(atlas, 16*(ii%2)+64, 16, 16, 16);
         }
         
         entities[0] = new Qbert(new Vec2i(2, 3), qbertSprites);
-        entities[1] = new RedBall(new Vec2i(3, 0), redBallSprites);
+        entities[1] = new Ball(new Vec2i(3, 0), redBallSprites);
+        entities[2] = new Ball(new Vec2i(4, 4), purpleBallSprites);
+        
+        entities[2].update(.3f);
     }
 
     @Override
@@ -98,11 +103,11 @@ class Qbert extends Entity {
     }
 }
 
-class RedBall extends Entity {
+class Ball extends Entity {
 
     float delay = 0;
 
-    public RedBall(Vec2i pos, byte[][] sprites) {
+    public Ball(Vec2i pos, byte[][] sprites) {
         super(pos, sprites);
     }
 
