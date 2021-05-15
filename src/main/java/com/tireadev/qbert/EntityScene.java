@@ -38,7 +38,7 @@ public class EntityScene extends Scene{
     
         tilemap = new byte[7*7];
         
-        for (int ii = 0; ii < entities.length; ii++) {
+        for (int ii = entities.length-1; ii >= 0; ii--) {
             entities[ii].update(deltaTime);
             tilemap[entities[ii].pos.y * mapWidth + entities[ii].pos.x] = (byte)(ii + 1);
         }
