@@ -37,6 +37,11 @@ public class GameUIScene extends Scene {
     }
     public void onUpdate(float deltaTime){
 
+        if (livesNum < 0) livesNum = 0;
+        if (roundNum > 4) roundNum = 4;
+        if (levelNum > 4) levelNum = 4;
+
+
         drawImage((11 * 16 + 8) * scale, (32) * scale, level, scale);
         drawImage((13*16+8) * scale, (32) * scale, chars['0'+levelNum-44], scale);
 
@@ -51,16 +56,6 @@ public class GameUIScene extends Scene {
 
         drawImage((24) * scale, (40) * scale, arrowL, scale);
         drawImage((64) * scale, (40) * scale, arrowR, scale);
-
-
-
-
-        if(keyPressed('H')) score++;
-        if(keyPressed('C')) val++;
-        if(val >= 3) val = 0;
-        if(keyPressed('O')) livesNum--;
-        if(keyPressed('P')) roundNum++;
-        if(keyPressed('I')) levelNum++;
 
 
         drawImage((40) * scale, (40) * scale, cubes[val], scale);

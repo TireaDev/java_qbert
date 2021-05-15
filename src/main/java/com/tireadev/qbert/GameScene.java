@@ -30,8 +30,12 @@ public class GameScene extends Scene {
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
 
-        if (entityScene.qPos.x == entityScene.ePos.x && entityScene.qPos.y == entityScene.ePos.y) {
+        if (
+                entityScene.entities[0].pos.x == entityScene.entities[1].pos.x
+             && entityScene.entities[0].pos.y == entityScene.entities[1].pos.y) {
             System.out.println("collided");
+            entityScene.entities[0].spawn();
+            gameUIScene.livesNum--;
         }
 
         if (mousePressed(0)) {
