@@ -11,6 +11,7 @@ public class GameScene extends Scene {
     EntityScene entityScene;
 
     static int score = 0;
+    static byte changeTo = 2;
 
     @Override
     public void onAwake() {
@@ -35,15 +36,17 @@ public class GameScene extends Scene {
                     entityScene.entities[0].pos.x == entityScene.entities[ii].pos.x
                  && entityScene.entities[0].pos.y == entityScene.entities[ii].pos.y
             ) {
-                System.out.println("collided");
+                System.out.println("collided with " + ii);
                 entityScene.entities[0].spawn();
                 gameUIScene.livesNum--;
                 return;
             }
         }
-
-        if (mousePressed(0)) {
-            addScore(25, gameUIScene);
+        
+        if (EntityScene.qbertJumped) {
+            if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
+                addScore(25, gameUIScene);
+            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
         }
     }
 

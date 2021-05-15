@@ -9,15 +9,29 @@ public class MapScene extends Scene {
     byte[][] blocks = new byte[4][];
 
     static final byte mapWidth = 7;
-    static final byte[] map = new byte[] { 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1,
-            0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1 };
+    static byte[] map;
 
-    public static void changeTile(int x, int y) {
-        map[y * mapWidth + x] += 1;
+    public static void changeTileTo(int x, int y, byte v) {
+        map[y * mapWidth + x] = v;
+    }
+
+    public static void setMapTo(byte v) {
+        map = new byte[] {
+            0,0,0,v,0,0,0,
+             0,0,v,v,0,0,0,
+            0,0,v,v,v,0,0,
+             0,v,v,v,v,0,0,
+            0,v,v,v,v,v,0,
+             v,v,v,v,v,v,0,
+            v,v,v,v,v,v,v
+        };
     }
 
     @Override
     public void onAwake() {
+    
+        setMapTo((byte)1);
+    
         blocks[1] = getSubImage(atlas, 0, 5 * 32, 32, 32);
         blocks[2] = getSubImage(atlas, 0, 6 * 32, 32, 32);
         blocks[3] = getSubImage(atlas, 0, 7 * 32, 32, 32);

@@ -5,6 +5,7 @@ import com.tireadev.shadowengine.math.Vec2i;
 
 import static com.tireadev.qbert.Main.*;
 import static com.tireadev.qbert.MapScene.mapWidth;
+import static com.tireadev.qbert.EntityScene.qbertJumped;
 
 public class EntityScene extends Scene{
 
@@ -14,6 +15,8 @@ public class EntityScene extends Scene{
     byte[][] purpleBallSprites = new byte[8][];
     
     public static byte[] tilemap = new byte[7*7];
+    
+    static boolean qbertJumped = false;
     
     Entity[] entities = new Entity[3];
 
@@ -75,19 +78,24 @@ class Qbert extends Entity {
     
         dir.x = 0;
         dir.y = 0;
+        qbertJumped = false;
     
         if (       (keyPressed('W') || keyPressed(KEY_UP))    && pos.y > 0 && pos.x >= 0) {
             dir.x = -1;
             dir.y = -1;
+            qbertJumped = true;
         } else if ((keyPressed('S') || keyPressed(KEY_DOWN))  && pos.y < 6 && pos.x < 6) {
             dir.x = 1;
             dir.y = 1;
+            qbertJumped = true;
         } else if ((keyPressed('A') || keyPressed(KEY_LEFT))  && pos.y < 6 && pos.x >= 0) {
             dir.x = -1;
             dir.y = 1;
+            qbertJumped = true;
         } else if ((keyPressed('D') || keyPressed(KEY_RIGHT)) && pos.y > 0 && pos.x < 6) {
             dir.x = 1;
             dir.y = -1;
+            qbertJumped = true;
         }
         
         move();
