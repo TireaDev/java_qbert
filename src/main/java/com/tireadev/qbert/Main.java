@@ -7,6 +7,7 @@ public class Main extends ShadowEngine {
 
     MainMenuScene mainMenuScene;
     GameOverScene gameOverScene;
+    WinScene winScene;
 
     static final byte scale = 2, tile = 32;
 
@@ -28,9 +29,11 @@ public class Main extends ShadowEngine {
         mainMenuScene = new MainMenuScene();
         gameOverScene = new GameOverScene();
         gameScene = new GameScene();
+        winScene = new WinScene();
         mainMenuScene.onAwake();
         gameOverScene.onAwake();
         gameScene.onAwake();
+        winScene.onAwake();
     }
 
     @Override
@@ -49,7 +52,8 @@ public class Main extends ShadowEngine {
 
         if (keyPressed('B')) gameOverScene.setActive();
         if (keyPressed(KEY_ESC)) mainMenuScene.setActive();
-        
+        if (keyPressed('O')) winScene.setActive();
+
         if (
                 keyPressed(KEY_ENTER)
                 && (mainMenuScene.cursorPosition == 0)
