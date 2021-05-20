@@ -2,8 +2,6 @@ package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
 
-import static com.tireadev.qbert.Main.*;
-
 public class GameScene extends Scene {
 
     MapScene mapScene;
@@ -38,24 +36,24 @@ public class GameScene extends Scene {
             ) {
                 System.out.println("collided with " + ii);
                 entityScene.entities[0].spawn();
-                gameUIScene.livesNum--;
+                GameUIScene.livesNum--;
                 return;
             }
         }
         
         if (EntityScene.qbertJumped) {
             if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
-                addScore(25, gameUIScene);
+                addScore(25);
             MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
         }
         
         if (isCompleted()) {
-            System.out.println("Round " + (gameUIScene.roundNum) + " Completed");
+            System.out.println("Round " + (GameUIScene.roundNum) + " Completed");
             
             changeTo += 1;
             if (changeTo > 4) changeTo = 1;
             
-            gameUIScene.roundNum += 1;
+            GameUIScene.roundNum += 1;
         }
     }
     
@@ -68,7 +66,7 @@ public class GameScene extends Scene {
         return true;
     }
 
-    public static void addScore(int i, GameUIScene guis) {
-        guis.score += i;
+    public static void addScore(int i) {
+        GameUIScene.score += i;
     }
 }

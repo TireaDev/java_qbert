@@ -6,7 +6,7 @@ import static com.tireadev.qbert.Main.*;
 
 public class GameUIScene extends Scene {
 
-    int score = 0, levelNum = 1, roundNum = 1, livesNum = 5, cubesVal = 0;
+    static int score = 0, levelNum = 1, roundNum = 1, livesNum = 5, cubesVal = 0;
     byte[] level, round, bertLives, changeTo, arrowL, arrowR;
     byte[][] cubes = new byte[3][];
     byte[][] chars = new byte['Z'-44+1][];

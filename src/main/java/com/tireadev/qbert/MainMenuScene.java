@@ -19,8 +19,9 @@ public class MainMenuScene extends Scene {
             chars[i] = getSubImage(atlas, 128 + 8 * (i - '0' + 44), 64, 8, 8); // řádek 1
         for (int i = 'A' - 44; i <= 'Z' - 44; i++)
             chars[i] = getSubImage(atlas, 128 + 8 * (i - 'A' + 44), 64 + 8, 8, 8); // řádek 2
-        chars[0] = getSubImage(atlas, 128 + 160, 64, 8, 8); // ,
-        chars[2] = getSubImage(atlas, 128 + 168, 64, 8, 8); // .
+        chars[0] = getSubImage(atlas, 128 + 80, 64, 8, 8); // ,
+        chars[2] = getSubImage(atlas, 128 + 88, 64, 8, 8); // .
+        chars[64-44] = getSubImage(atlas, 128 + 96, 64, 16, 16); // @
         bertHimself = getSubImage(atlas, 0, 0, 16, 16);
     }
 
@@ -31,7 +32,7 @@ public class MainMenuScene extends Scene {
         drawText("Play Select", (16 * 6 - 8) * scale, (16 * 6) * scale, chars, 44, scale, true);
         drawText("Play", (16 * 7) * scale, (16 * 7 + 4) * scale, chars, 44, scale, true);
         drawText("Quit", (16 * 7) * scale, (16 * 8 + 4) * scale, chars, 44, scale, true);
-        drawText("TM AND  0  1989", 5 * 16 * scale, 10 * 16 * scale, chars, 44, scale, true);
+        drawText("TM AND  @  1989", 5 * 16 * scale, 10 * 16 * scale, chars, 44, scale, true);
         drawText("KONAMI INDUSTRY CO.,LTD.", 2 * 16 * scale, (10 * 16 * scale) + 16, chars, 44, scale, true);
         drawText("LICENSED BY", 6 * 16 * scale, 11 * 16 * scale, chars, 44, scale, true);
         drawText("NINTENDO OF AMERICA INC.", 2 * 16 * scale, (11 * 16 * scale) + 16, chars, 44, scale, true);
