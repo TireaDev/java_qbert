@@ -8,7 +8,7 @@ public class GameUIScene extends Scene {
 
     static int score = 0, levelNum = 1, roundNum = 1, livesNum = 5, cubesVal = 0;
     byte[] level, round, bertLives, changeTo, arrowL, arrowR;
-    byte[][] cubes = new byte[3][];
+    byte[][] cubes = new byte[4][];
     byte[][] chars = new byte['Z'-44+1][];
 
     public void onAwake(){
@@ -20,18 +20,17 @@ public class GameUIScene extends Scene {
         for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = getSubImage(atlas,128+8*(i-'A'+44),16+8,8,8);
         chars[0] = getSubImage(atlas,280,40,8,8);
         bertLives = getSubImage(atlas,14*16,32,8,10);
-        for (int i = 0; i < 3; i++) cubes[i] = getSubImage(atlas,4*16,16*10+i*32,16,16);
+        for (int i = 0; i < cubes.length; i++) cubes[i] = getSubImage(atlas,4*16,16*10+i*32,16,16);
         arrowL = getSubImage(atlas,16*16+8,7*16,8,16);
         arrowR = getSubImage(atlas,17*16,7*16,8,16);
 
-
     }
+    
     public void onUpdate(float deltaTime){
 
         if (livesNum < 0) livesNum = 0;
         if (roundNum > 4) roundNum = 4;
         if (levelNum > 3) levelNum = 3;
-        if (cubesVal > 2) cubesVal = 2;
 
 
         drawImage((11 * 16 + 8) * scale, (32) * scale, level, scale);
@@ -51,11 +50,5 @@ public class GameUIScene extends Scene {
         drawImage((40) * scale, (40) * scale, cubes[cubesVal], scale);
         
         drawText(String.format("%05d", score), (24) * scale, (24) * scale, chars, 44, scale, true);
-
-
-
     }
-
-
-
 }

@@ -2,6 +2,8 @@ package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
 
+import static com.tireadev.qbert.GameUIScene.*;
+
 public class GameScene extends Scene {
 
     MapScene mapScene;
@@ -10,6 +12,7 @@ public class GameScene extends Scene {
 
     static int score = 0;
     static byte changeTo = 2;
+    static byte changeBy = 1;
 
     @Override
     public void onAwake() {
@@ -44,16 +47,23 @@ public class GameScene extends Scene {
         if (EntityScene.qbertJumped) {
             if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
                 addScore(25);
-            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
+            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, (byte)1, changeTo);
         }
         
         if (isCompleted()) {
-            System.out.println("Round " + (GameUIScene.roundNum) + " Completed");
+            System.out.println("Round " + (roundNum) + " Level " + (levelNum) + " Completed");
             
-            changeTo += 1;
-            if (changeTo > 4) changeTo = 1;
+            changeTo += changeBy;
+            roundNum += 1;
             
-            GameUIScene.roundNum += 1;
+            if (roundNum > 4) {
+                roundNum = 1;
+                levelNum += 1;
+                changeBy += 1;
+                changeTo += 1;
+            }
+            
+            cubesVal = (changeTo - 1) % 4;
         }
     }
     
