@@ -2,7 +2,7 @@ package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
 
-import static com.tireadev.qbert.GameUIScene.*;
+import static com.tireadev.qbert.Main.*;
 
 public class GameScene extends Scene {
 
@@ -39,8 +39,12 @@ public class GameScene extends Scene {
                  && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
             ) {
                 System.out.println("collided with " + ii);
+                entityScene.clearEnemies();
                 entityScene.entities.get(0).spawn();
                 GameUIScene.livesNum--;
+                if (GameUIScene.livesNum < 0)
+                    gameOverScene.setActive();
+                    
                 return;
             }
         }
@@ -54,19 +58,27 @@ public class GameScene extends Scene {
         newRound = false;
         
         if (isCompleted()) {
-            System.out.println("Round " + (roundNum) + " Level " + (levelNum) + " Completed");
+            System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
             
             changeTo += changeBy;
-            roundNum += 1;
+            GameUIScene.roundNum += 1;
             
-            if (roundNum > 4) {
-                roundNum = 1;
-                levelNum += 1;
+            GameUIScene.score += 500;
+            GameUIScene.score += GameUIScene.livesNum * 200;
+            
+            if (GameUIScene.roundNum > 4) {
+                GameUIScene.score += 1500;
+                
+                GameUIScene.roundNum = 1;
+                GameUIScene.levelNum += 1;
                 changeBy += 1;
                 changeTo += 1;
+                
+                if (GameUIScene.levelNum > 3)
+                    winScene.setActive();
             }
             
-            cubesVal = (changeTo - 1) % 4;
+            GameUIScene.cubesVal = (changeTo - 1) % 4;
             
             entityScene.entities.get(0).spawn();
             entityScene.clearEnemies();

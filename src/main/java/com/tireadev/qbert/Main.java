@@ -5,9 +5,9 @@ import com.tireadev.shadowengine.ShadowEngine;
 
 public class Main extends ShadowEngine {
 
-    MainMenuScene mainMenuScene;
-    GameOverScene gameOverScene;
-    WinScene winScene;
+    static MainMenuScene mainMenuScene;
+    static GameOverScene gameOverScene;
+    static WinScene winScene;
 
     static final byte scale = 2, tile = 16;
 
@@ -62,22 +62,23 @@ public class Main extends ShadowEngine {
         if (!paused) {
             clear(BLACK);
             Scene.active.onUpdate(deltaTime);
-    
-            // if (keyPressed('B')) gameOverScene.setActive();
+            
             // if (keyPressed('N')) winScene.setActive();
             // if (keyPressed('M')) mainMenuScene.setActive();
-            
     
-            if (
-                    keyPressed(KEY_ENTER)
-                    && (mainMenuScene.cursorPosition == 0)
-                    && Scene.active.equals(mainMenuScene)
-            ) gameScene.setActive();
-            else if (
-                    keyPressed(KEY_ENTER)
-                    && (mainMenuScene.cursorPosition == 1)
-                    && Scene.active.equals(mainMenuScene)
-            ) close();
+            if (keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 0)
+                && Scene.active.equals(mainMenuScene)
+            ) {
+                gameScene.onAwake();
+                gameScene.setActive();
+            }
+            else if (keyPressed(KEY_ENTER)
+                && (mainMenuScene.cursorPosition == 1)
+                && Scene.active.equals(mainMenuScene)
+            ) {
+                close();
+            }
         } else {
             fillRect((7*tile - tile/4) * scale, (tile*7) * scale, (tile*2 + tile/2 + 1) * scale, (tile/2) * scale, BLACK);
             drawText("PAUSE", (7*tile - tile/4) * scale, (tile*7) * scale, white_font, white_font_offset, scale, true);
