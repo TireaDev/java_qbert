@@ -64,8 +64,8 @@ public class EntityScene extends Scene{
                     if (y % 2 == 1) ox = tile;
                     ox += tile;
 
-                    int tx = x * tile * 2 + ox + tile / 2;
-                    int ty = y * tile * 3/2 + tile * 2 - getImageHeight(sprite) + tile * 5/8;
+                    int tx = x * tile * 2 + tile / 2 + ox;
+                    int ty = y * tile * 3/2 + tile * 21/8 - getImageHeight(sprite);
 
                     drawImage(tx * scale, ty * scale, sprite, scale);
                 }

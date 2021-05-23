@@ -38,14 +38,11 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-        // gameScene.setActive();
         mainMenuScene.setActive();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
-
-
         clear(BLACK);
 
         Scene.active.onUpdate(deltaTime);

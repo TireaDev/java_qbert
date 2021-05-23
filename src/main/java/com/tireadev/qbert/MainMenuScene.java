@@ -21,7 +21,7 @@ public class MainMenuScene extends Scene {
             chars[i] = getSubImage(atlas, 128 + 8 * (i - 'A' + 44), 64 + 8, 8, 8); // řádek 2
         chars[0] = getSubImage(atlas, 128 + 80, 64, 8, 8); // ,
         chars[2] = getSubImage(atlas, 128 + 88, 64, 8, 8); // .
-        chars[64-44] = getSubImage(atlas, 128 + 96, 64, 16, 16); // @
+        chars[64-44] = getSubImage(atlas, 128 + 96, 64, 8, 8); // @
         bertHimself = getSubImage(atlas, 0, 0, 16, 16);
     }
 
@@ -30,8 +30,8 @@ public class MainMenuScene extends Scene {
         drawImage((5 * tile + tile/2) * scale, (tile*2 - tile/2) * scale, ultraGames, scale);
         drawImage((3 * tile) * scale, (tile * 3) * scale, qbertTitle, scale);
         drawText("Play Select", (tile * 6 - tile/2) * scale, (tile * 6) * scale, chars, 44, scale, true);
-        drawText("Play", (tile * 7) * scale, (tile * 7 + 4) * scale, chars, 44, scale, true);
-        drawText("Quit", (tile * 7) * scale, (tile * 8 + 4) * scale, chars, 44, scale, true);
+        drawText("Play", (tile * 7) * scale, (tile * 7 + tile/4) * scale, chars, 44, scale, true);
+        drawText("Quit", (tile * 7) * scale, (tile * 8 + tile/4) * scale, chars, 44, scale, true);
         drawText("TM AND  @  1989", 5 * tile * scale, 10 * tile * scale, chars, 44, scale, true);
         drawText("KONAMI INDUSTRY CO.,LTD.", 2 * tile * scale, (10 * tile * scale) + tile, chars, 44, scale, true);
         drawText("LICENSED BY", 6 * tile * scale, 11 * tile * scale, chars, 44, scale, true);
@@ -46,6 +46,5 @@ public class MainMenuScene extends Scene {
             cursorPosition--;
 
         drawImage((5 * tile + tile/2) * scale, (tile * (7 + cursorPosition)) * scale, bertHimself, scale);
-
     }
 }
