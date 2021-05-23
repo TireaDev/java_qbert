@@ -46,7 +46,7 @@ public class GameScene extends Scene {
         
         if (EntityScene.qbertJumped) {
             if (MapScene.map[entityScene.entities.get(0).pos.x + MapScene.mapWidth * entityScene.entities.get(0).pos.y] != changeTo)
-                addScore(25);
+                GameUIScene.score += 25;
             MapScene.changeTileTo(entityScene.entities.get(0).pos.x, entityScene.entities.get(0).pos.y, (byte)1, changeTo);
         }
         
@@ -74,9 +74,5 @@ public class GameScene extends Scene {
             if (val != (byte)changeTo) return false;
         }
         return true;
-    }
-
-    public static void addScore(int i) {
-        GameUIScene.score += i;
     }
 }
