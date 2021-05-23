@@ -24,6 +24,8 @@ public class GameUIScene extends Scene {
         arrowR = getSubImage(atlas,17*16,7*16,8,16);
     }
     
+    int time = 0;
+    
     public void onUpdate(float deltaTime){
         if (livesNum < 0) livesNum = 0;
         if (roundNum > 4) roundNum = 4;
@@ -46,5 +48,8 @@ public class GameUIScene extends Scene {
         drawImage((tile*2 + tile/2) * scale, (tile*2 + tile/2) * scale, cubes[cubesVal], scale);
         
         drawText(String.format("%05d", score), (tile + tile/2) * scale, (tile + tile/2) * scale, chars, 44, scale, true);
+        
+        time++;
+        drawText(String.format("%05d", time), (tile + tile/2) * scale, (tile) * scale, chars, 44, scale, true);
     }
 }

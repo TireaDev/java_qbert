@@ -22,7 +22,6 @@ public class GameScene extends Scene {
         gameUIScene = new GameUIScene();
         entityScene = new EntityScene();
 
-
         mapScene.onAwake();
         gameUIScene.onAwake();
         entityScene.onAwake();
