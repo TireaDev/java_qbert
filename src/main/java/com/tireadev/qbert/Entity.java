@@ -8,12 +8,15 @@ public abstract class Entity {
     
     byte[] sprite;
     byte[][] sprites = new byte[8][];
+    
+    public EntityType type;
 
-    public Entity(Vec2i pos, byte[][] sprites) {
+    public Entity(Vec2i pos, byte[][] sprites, EntityType type) {
         this.pos = pos;
         this.dir = new Vec2i();
         this.sprites = sprites;
         this.sprite = sprites[0];
+        this.type = type;
     }
     
     void move() {
@@ -25,7 +28,12 @@ public abstract class Entity {
             x = pos.x + dir.x;
         }
         
-        if (MapScene.map[y * MapScene.mapWidth + x] > 0) {
+        try {
+            if (MapScene.map[y * MapScene.mapWidth + x] > 0) {
+                pos.x = x;
+                pos.y = y;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
             pos.x = x;
             pos.y = y;
         }
@@ -35,4 +43,9 @@ public abstract class Entity {
     
     public abstract void spawn();
     
+}
+
+enum EntityType {
+    PLAYER,
+    ENEMY
 }

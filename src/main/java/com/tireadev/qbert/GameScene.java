@@ -32,22 +32,22 @@ public class GameScene extends Scene {
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
         
-        for (int ii = 1; ii < entityScene.entities.length; ii++) {
+        for (int ii = 1; ii < entityScene.entities.size(); ii++) {
             if (
-                    entityScene.entities[0].pos.x == entityScene.entities[ii].pos.x
-                 && entityScene.entities[0].pos.y == entityScene.entities[ii].pos.y
+                    entityScene.entities.get(0).pos.x == entityScene.entities.get(ii).pos.x
+                 && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
             ) {
                 System.out.println("collided with " + ii);
-                entityScene.entities[0].spawn();
+                entityScene.entities.get(0).spawn();
                 GameUIScene.livesNum--;
                 return;
             }
         }
         
         if (EntityScene.qbertJumped) {
-            if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
+            if (MapScene.map[entityScene.entities.get(0).pos.x + MapScene.mapWidth * entityScene.entities.get(0).pos.y] != changeTo)
                 addScore(25);
-            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, (byte)1, changeTo);
+            MapScene.changeTileTo(entityScene.entities.get(0).pos.x, entityScene.entities.get(0).pos.y, (byte)1, changeTo);
         }
         
         if (isCompleted()) {
