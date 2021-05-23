@@ -22,6 +22,8 @@ public class EntityScene extends Scene{
     
     static boolean qbertJumped = false;
     
+    Entity qbert;
+    
     @Override
     public void onAwake() {
         for (int ii = 0; ii < 8; ii++) {
@@ -30,7 +32,14 @@ public class EntityScene extends Scene{
             purpleBallSprites[ii] = getSubImage(atlas, 16*(ii%2)+64, 16, 16, 16);
         }
         
-        entities.add(new Qbert(new Vec2i(2, 3), qbertSprites));
+        qbert = new Qbert(new Vec2i(2, 3), qbertSprites);
+        
+        entities.add(qbert);
+    }
+    
+    public void clearEnemies() {
+        entities.clear();
+        entities.add(qbert);
     }
 
     @Override

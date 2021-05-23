@@ -13,6 +13,8 @@ public class GameScene extends Scene {
     static int score = 0;
     static byte changeTo = 2;
     static byte changeBy = 1;
+    
+    static boolean newRound = false;
 
     @Override
     public void onAwake() {
@@ -44,11 +46,13 @@ public class GameScene extends Scene {
             }
         }
         
-        if (EntityScene.qbertJumped) {
+        if (EntityScene.qbertJumped && !newRound) {
             if (MapScene.map[entityScene.entities.get(0).pos.x + MapScene.mapWidth * entityScene.entities.get(0).pos.y] != changeTo)
                 GameUIScene.score += 25;
             MapScene.changeTileTo(entityScene.entities.get(0).pos.x, entityScene.entities.get(0).pos.y, (byte)1, changeTo);
         }
+        
+        newRound = false;
         
         if (isCompleted()) {
             System.out.println("Round " + (roundNum) + " Level " + (levelNum) + " Completed");
@@ -64,6 +68,10 @@ public class GameScene extends Scene {
             }
             
             cubesVal = (changeTo - 1) % 4;
+            
+            entityScene.entities.get(0).spawn();
+            entityScene.clearEnemies();
+            newRound = true;
         }
     }
     
