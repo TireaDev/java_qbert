@@ -56,16 +56,18 @@ public class EntityScene extends Scene{
             for (int x = 0; x < mapWidth; x++) {
                 int val = tilemap[y * mapWidth + x];
                 if (val > 0) {
-                    int ox = 0, oy = tile*3/4 * scale;
-                    if (y % 2 == 1) ox = tile/2 * scale;
-                    ox += tile/2 * scale;
-
-                    int tx = x * tile * scale + ox;
-                    int ty = y * oy + (tile * scale * 5/4);
-
                     if (val > entities.size()) continue;
-                    
-                    drawImage(tx+16, ty-8, entities.get(val-1).sprite, scale);
+
+                    byte[] sprite = entities.get(val-1).sprite;
+
+                    int ox = 0;
+                    if (y % 2 == 1) ox = tile;
+                    ox += tile;
+
+                    int tx = x * tile * 2 + ox + tile / 2;
+                    int ty = y * tile * 3/2 + tile * 2 - getImageHeight(sprite) + tile * 5/8;
+
+                    drawImage(tx * scale, ty * scale, sprite, scale);
                 }
             }
         }

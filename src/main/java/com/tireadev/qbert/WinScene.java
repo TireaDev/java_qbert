@@ -24,11 +24,11 @@ public class WinScene extends Scene {
 
     @Override
     public void onUpdate(float deltaTime) {
-        drawImage((16*10-8) * scale, (16*6-8) * scale, coolGuyR, scale);
-        drawImage((16*5-8) * scale, (16*6-8) * scale, coolGuyL, scale);
-        drawText("YOU  WIN", (16 * 6 - 8) * scale, (16 * 6) * scale, chars, 44, scale, true);
-        drawText(String.format("%05d", GameUIScene.score), (16 * 7 - 8) * scale, (16 * 7) * scale, chars, 44, scale, true);
-        drawText("Continue A", (16 * 5) * scale, (16 * 8) * scale, chars, 44, scale, true);
-        drawText("Game end B", (16 * 5) * scale, (16 * 9) * scale, chars, 44, scale, true);
+        drawImage((tile*10-tile/2) * scale, (tile*6-tile/2) * scale, coolGuyR, scale);
+        drawImage((tile*5-tile/2) * scale, (tile*6-tile/2) * scale, coolGuyL, scale);
+        drawText("YOU  WIN", (tile * 6 - tile/2) * scale, (tile * 6) * scale, chars, 44, scale, true);
+        drawText(String.format("%05d", GameUIScene.score), (tile * 7 - tile/2) * scale, (tile * 7) * scale, chars, 44, scale, true);
+        drawText("Continue A", (tile * 5) * scale, (tile * 8) * scale, chars, 44, scale, true);
+        drawText("Game end B", (tile * 5) * scale, (tile * 9) * scale, chars, 44, scale, true);
     }
 }

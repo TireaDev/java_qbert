@@ -29,22 +29,22 @@ public class GameUIScene extends Scene {
         if (roundNum > 4) roundNum = 4;
         if (levelNum > 3) levelNum = 3;
 
-        drawImage((11 * 16 + 8) * scale, (32) * scale, level, scale);
-        drawImage((13*16+8) * scale, (32) * scale, chars['0'+levelNum-44], scale);
+        drawImage((tile*11 + tile/2) * scale, (tile*2) * scale, level, scale);
+        drawImage((tile*13 + tile/2) * scale, (tile*2) * scale, chars['0'+levelNum-44], scale);
 
-        drawImage((11 * 16 + 8) * scale, (40) * scale, round, scale);
-        drawImage((13*16+8) * scale, (40) * scale, chars['0'+roundNum-44], scale);
+        drawImage((tile*11 + tile/2) * scale, (tile*2 + tile/2) * scale, round, scale);
+        drawImage((tile*13 + tile/2) * scale, (tile*2 + tile/2) * scale, chars['0'+roundNum-44], scale);
 
-        drawImage((16) * scale, (32) * scale, changeTo, scale);
+        drawImage((tile) * scale, (tile*2) * scale, changeTo, scale);
 
-        drawImage((16) * scale, (64) * scale, bertLives, scale);
-        drawImage((24) * scale, (64) * scale, chars[0], scale);
-        drawImage((32) * scale, (64) * scale, chars['0'+livesNum-44], scale);
+        drawImage((tile) * scale, (tile*4) * scale, bertLives, scale);
+        drawImage((tile + tile/2) * scale, (tile*4) * scale, chars[0], scale);
+        drawImage((tile*2) * scale, (tile*4) * scale, chars['0'+livesNum-44], scale);
 
-        drawImage((24) * scale, (40) * scale, arrowL, scale);
-        drawImage((64) * scale, (40) * scale, arrowR, scale);
-        drawImage((40) * scale, (40) * scale, cubes[cubesVal], scale);
+        drawImage((tile + tile/2) * scale, (tile*2 + tile/2) * scale, arrowL, scale);
+        drawImage((tile*4) * scale, (tile*2 + tile/2) * scale, arrowR, scale);
+        drawImage((tile*2 + tile/2) * scale, (tile*2 + tile/2) * scale, cubes[cubesVal], scale);
         
-        drawText(String.format("%05d", score), (24) * scale, (24) * scale, chars, 44, scale, true);
+        drawText(String.format("%05d", score), (tile + tile/2) * scale, (tile + tile/2) * scale, chars, 44, scale, true);
     }
 }

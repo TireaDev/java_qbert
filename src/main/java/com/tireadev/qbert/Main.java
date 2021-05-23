@@ -9,7 +9,7 @@ public class Main extends ShadowEngine {
     GameOverScene gameOverScene;
     WinScene winScene;
 
-    static final byte scale = 2, tile = 32;
+    static final byte scale = 2, tile = 16;
 
     static byte[] atlas;
 

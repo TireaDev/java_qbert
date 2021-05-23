@@ -20,9 +20,9 @@ public class GameOverScene extends Scene {
 
     @Override
     public void onUpdate(float v) {
-        drawText("GAME  OVER", (16 * 5) * scale, (16 * 6) * scale, chars, 44, scale, true);
-        drawText(String.format("%05d", GameUIScene.score), (16 * 7 - 8) * scale, (16 * 7) * scale, chars, 44, scale, true);
-        drawText("Continue A", (16 * 5) * scale, (16 * 8) * scale, chars, 44, scale, true);
-        drawText("Game end B", (16 * 5) * scale, (16 * 9) * scale, chars, 44, scale, true);
+        drawText("GAME  OVER", (tile * 5) * scale, (tile * 6) * scale, chars, 44, scale, true);
+        drawText(String.format("%05d", GameUIScene.score), (tile * 7 - tile/2) * scale, (tile * 7) * scale, chars, 44, scale, true);
+        drawText("Continue A", (tile * 5) * scale, (tile * 8) * scale, chars, 44, scale, true);
+        drawText("Game end B", (tile * 5) * scale, (tile * 9) * scale, chars, 44, scale, true);
     }
 }

@@ -41,22 +41,18 @@ public class MapScene extends Scene {
 
     @Override
     public void onUpdate(float deltaTime) {
-
         for (int y = 0; y < mapWidth; y++) {
             for (int x = 0; x < mapWidth; x++) {
                 int val = map[y * mapWidth + x] % 4 + 1;
                 if (map[y * mapWidth + x] > 0) {
+                    int ox = 0;
+                    if (y % 2 == 1) ox = tile;
+                    ox += tile;
 
-                    int ox = 0, oy = tile * 3 / 4 * scale;
-                    if (y % 2 == 1)
-                        ox = tile / 2 * scale;
+                    int tx = x * tile * 2 + ox;
+                    int ty = y * tile * 3/2 + tile * 2;
 
-                    ox += tile / 2 * scale;
-
-                    int tx = x * tile * scale + ox;
-                    int ty = y * oy + (tile * scale * 5 / 4);
-
-                    drawImage(tx, ty, blocks[val], scale);
+                    drawImage(tx * scale, ty * scale, blocks[val], scale);
                 }
             }
         }
