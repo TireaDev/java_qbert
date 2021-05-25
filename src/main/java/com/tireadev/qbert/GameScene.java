@@ -42,9 +42,10 @@ public class GameScene extends Scene {
                 entityScene.clearEnemies();
                 entityScene.entities.get(0).spawn();
                 GameUIScene.livesNum--;
-                if (GameUIScene.livesNum < 0)
+                if (GameUIScene.livesNum < 0) {
+                    gameOverScene.onAwake();
                     gameOverScene.setActive();
-                    
+                }
                 return;
             }
         }
@@ -74,8 +75,10 @@ public class GameScene extends Scene {
                 changeBy += 1;
                 changeTo += 1;
                 
-                if (GameUIScene.levelNum > 3)
+                if (GameUIScene.levelNum > 3) {
+                    winScene.onAwake();
                     winScene.setActive();
+                }
             }
             
             GameUIScene.cubesVal = (changeTo - 1) % 4;

@@ -50,8 +50,7 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-        //mainMenuScene.setActive();
-        winScene.setActive();
+        mainMenuScene.setActive();
     }
 
     @Override
@@ -64,8 +63,14 @@ public class Main extends ShadowEngine {
             clear(BLACK);
             Scene.active.onUpdate(deltaTime);
             
-            if (keyPressed('N')) winScene.setActive();
-            if (keyPressed('M')) gameOverScene.setActive();
+            if (keyPressed('N')) {
+                winScene.onAwake();
+                winScene.setActive();
+            }
+            if (keyPressed('M')) {
+                gameOverScene.onAwake();
+                gameOverScene.setActive();
+            }
 
             if (keyPressed(KEY_ENTER)) {
                 if (Scene.active.equals(mainMenuScene)) {
