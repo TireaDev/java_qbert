@@ -28,6 +28,16 @@ public abstract class Entity {
             x = pos.x + dir.x;
         }
         
+        if (dir.x == 1 && dir.y == -1) {
+            sprite = sprites[0];
+        } else if (dir.x == -1 && dir.y == -1) {
+            sprite = sprites[2];
+        } else if (dir.x == 1 && dir.y == 1) {
+            sprite = sprites[4];
+        } else if (dir.x == -1 && dir.y == 1) {
+            sprite = sprites[6];
+        }
+        
         try {
             if (MapScene.map[y * MapScene.mapWidth + x] > 0) {
                 pos.x = x;
