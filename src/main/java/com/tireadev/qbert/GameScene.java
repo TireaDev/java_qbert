@@ -12,13 +12,15 @@ public class GameScene extends Scene {
 
     static int score = 0;
     static byte changeTo = 2;
+    static byte changeBy = 1;
+    
+    static boolean newRound = false;
 
     @Override
     public void onAwake() {
         mapScene = new MapScene();
         gameUIScene = new GameUIScene();
         entityScene = new EntityScene();
-
 
         mapScene.onAwake();
         gameUIScene.onAwake();
@@ -31,31 +33,56 @@ public class GameScene extends Scene {
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
         
-        for (int ii = 1; ii < entityScene.entities.length; ii++) {
+        for (int ii = 1; ii < entityScene.entities.size(); ii++) {
             if (
-                    entityScene.entities[0].pos.x == entityScene.entities[ii].pos.x
-                 && entityScene.entities[0].pos.y == entityScene.entities[ii].pos.y
+                    entityScene.entities.get(0).pos.x == entityScene.entities.get(ii).pos.x
+                 && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
             ) {
                 System.out.println("collided with " + ii);
-                entityScene.entities[0].spawn();
-                gameUIScene.livesNum--;
+                entityScene.clearEnemies();
+                entityScene.entities.get(0).spawn();
+                GameUIScene.livesNum--;
+                if (GameUIScene.livesNum < 0)
+                    gameOverScene.setActive();
+                    
                 return;
             }
         }
         
-        if (EntityScene.qbertJumped) {
-            if (MapScene.map[entityScene.entities[0].pos.x + MapScene.mapWidth * entityScene.entities[0].pos.y] != changeTo)
-                addScore(25, gameUIScene);
-            MapScene.changeTileTo(entityScene.entities[0].pos.x, entityScene.entities[0].pos.y, changeTo);
+        if (EntityScene.qbertJumped && !newRound) {
+            if (MapScene.map[entityScene.entities.get(0).pos.x + MapScene.mapWidth * entityScene.entities.get(0).pos.y] != changeTo)
+                GameUIScene.score += 25;
+            MapScene.changeTileTo(entityScene.entities.get(0).pos.x, entityScene.entities.get(0).pos.y, (byte)1, changeTo);
         }
         
+        newRound = false;
+        
         if (isCompleted()) {
-            System.out.println("Round " + (gameUIScene.roundNum) + " Completed");
+            System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
             
-            changeTo += 1;
-            if (changeTo > 4) changeTo = 1;
+            changeTo += changeBy;
+            GameUIScene.roundNum += 1;
             
-            gameUIScene.roundNum += 1;
+            GameUIScene.score += 500;
+            GameUIScene.score += GameUIScene.livesNum * 200;
+            
+            if (GameUIScene.roundNum > 4) {
+                GameUIScene.score += 1500;
+                
+                GameUIScene.roundNum = 1;
+                GameUIScene.levelNum += 1;
+                changeBy += 1;
+                changeTo += 1;
+                
+                if (GameUIScene.levelNum > 3)
+                    winScene.setActive();
+            }
+            
+            GameUIScene.cubesVal = (changeTo - 1) % 4;
+            
+            entityScene.entities.get(0).spawn();
+            entityScene.clearEnemies();
+            newRound = true;
         }
     }
     
@@ -66,9 +93,5 @@ public class GameScene extends Scene {
             if (val != (byte)changeTo) return false;
         }
         return true;
-    }
-
-    public static void addScore(int i, GameUIScene guis) {
-        guis.score += i;
     }
 }
