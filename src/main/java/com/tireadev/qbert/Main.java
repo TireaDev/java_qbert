@@ -50,7 +50,8 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onStart() {
-        mainMenuScene.setActive();
+        //mainMenuScene.setActive();
+        winScene.setActive();
     }
 
     @Override
@@ -63,22 +64,33 @@ public class Main extends ShadowEngine {
             clear(BLACK);
             Scene.active.onUpdate(deltaTime);
             
-            // if (keyPressed('N')) winScene.setActive();
-            // if (keyPressed('M')) mainMenuScene.setActive();
-    
-            if (keyPressed(KEY_ENTER)
-                && (mainMenuScene.cursorPosition == 0)
-                && Scene.active.equals(mainMenuScene)
-            ) {
-                gameScene.onAwake();
-                gameScene.setActive();
+            if (keyPressed('N')) winScene.setActive();
+            if (keyPressed('M')) gameOverScene.setActive();
+
+            if (keyPressed(KEY_ENTER)) {
+                if (Scene.active.equals(mainMenuScene)) {
+                    if (mainMenuScene.cursorPosition == 0) {
+                        gameScene.onAwake();
+                        gameScene.setActive();
+                    } else if (mainMenuScene.cursorPosition == 1) {
+                        close();
+                    }
+                } else if (Scene.active.equals(gameOverScene)) {
+                    if ((gameOverScene.cursorPosition == 0)) {
+                        mainMenuScene.setActive();
+                    } else if (gameOverScene.cursorPosition == 1) {
+                        close();
+                    }
+                } else if (Scene.active.equals(winScene)) {
+                    if ((winScene.cursorPosition == 0)) {
+                        mainMenuScene.setActive();
+                    } else if (winScene.cursorPosition == 1) {
+                        close();
+                    }
+                }
             }
-            else if (keyPressed(KEY_ENTER)
-                && (mainMenuScene.cursorPosition == 1)
-                && Scene.active.equals(mainMenuScene)
-            ) {
-                close();
-            }
+
+
         } else {
             fillRect((7*tile - tile/4) * scale, (tile*7) * scale, (tile*2 + tile/2 + 1) * scale, (tile/2) * scale, BLACK);
             drawText("PAUSE", (7*tile - tile/4) * scale, (tile*7) * scale, white_font, white_font_offset, scale, true);
