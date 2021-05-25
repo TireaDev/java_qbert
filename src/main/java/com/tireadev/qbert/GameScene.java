@@ -10,11 +10,11 @@ public class GameScene extends Scene {
     GameUIScene gameUIScene;
     EntityScene entityScene;
 
-    static int score = 0;
-    static byte changeTo = 2;
-    static byte changeBy = 1;
+    static int score;
+    static byte changeTo;
+    static byte changeBy;
     
-    static boolean newRound = false;
+    static boolean newRound;
 
     @Override
     public void onAwake() {
@@ -25,6 +25,11 @@ public class GameScene extends Scene {
         mapScene.onAwake();
         gameUIScene.onAwake();
         entityScene.onAwake();
+        
+        changeTo = 2;
+        changeBy = 1;
+        score = 0;
+        newRound = false;
     }
 
     @Override

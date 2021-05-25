@@ -6,12 +6,19 @@ import static com.tireadev.qbert.Main.*;
 
 public class GameUIScene extends Scene {
 
-    static int score = 0, levelNum = 1, roundNum = 1, livesNum = 5, cubesVal = 1;
+    static int score, levelNum, roundNum, livesNum, cubesVal;
     byte[] level, round, bertLives, changeTo, arrowL, arrowR;
     byte[][] cubes = new byte[4][];
     byte[][] chars = new byte['Z'-44+1][];
 
     public void onAwake(){
+    
+        score = 0;
+        levelNum = 1;
+        roundNum = 1;
+        livesNum = 5;
+        cubesVal = 1;
+    
         level = getSubImage(atlas,240,8*16,32,8);
         round = getSubImage(atlas,240,8+8*16,32,8);
         changeTo = getSubImage(atlas,240,9*16,48,8);
