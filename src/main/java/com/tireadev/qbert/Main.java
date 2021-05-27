@@ -9,7 +9,7 @@ public class Main extends ShadowEngine {
     static GameOverScene gameOverScene;
     static WinScene winScene;
 
-    static final byte scale = 2, tile = 16;
+    static final byte scale = 3, tile = 16;
 
     static byte[] atlas;
     static byte[][] white_font = new byte['Z' - 44+1][];

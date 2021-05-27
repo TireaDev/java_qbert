@@ -32,12 +32,12 @@ public class MainMenuScene extends Scene {
         drawText("Play", (tile * 7) * scale, (tile * 7 + tile/4) * scale, white_font, white_font_offset, scale, true, (timer-2.1f)*1.2f);
         drawText("Quit", (tile * 7) * scale, (tile * 8 + tile/4) * scale, white_font, white_font_offset, scale, true, (timer-2.2f)*1.2f);
         drawText("TM AND  @  1989", 5 * tile * scale, 10 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
-        drawText("KONAMI INDUSTRY CO.,LTD.", 2 * tile * scale, (10 * tile * scale) + tile, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("KONAMI INDUSTRY CO.,LTD.", 2 * tile * scale, (10 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
         drawText("LICENSED BY", 6 * tile * scale, 11 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
-        drawText("NINTENDO OF AMERICA INC.", 2 * tile * scale, (11 * tile * scale) + tile, white_font, white_font_offset, scale, true, timer-1.5f);
-        drawText("ULTRA GAMES IS A REGISTERED ", tile * scale, (12 * tile * scale) + tile, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("NINTENDO OF AMERICA INC.", 2 * tile * scale, (11 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("ULTRA GAMES IS A REGISTERED ", tile * scale, (12 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
         drawText("TRADEMARK OF ULTRA SOFTWARE", tile * scale, 13 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
-        drawText("CORPORATION.", tile * scale, (13 * tile * scale) + tile, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("CORPORATION.", tile * scale, (13 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
 
         if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0))
             cursorPosition++;

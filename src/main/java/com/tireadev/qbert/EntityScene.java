@@ -88,7 +88,7 @@ class Qbert extends Entity {
     public Qbert(Vec2i pos, byte[][] sprites) {
         super(pos, sprites, EntityType.PLAYER);
         spawn();
-        sprite = sprites[5];
+        sprite = sprites[4];
     }
 
     @Override
