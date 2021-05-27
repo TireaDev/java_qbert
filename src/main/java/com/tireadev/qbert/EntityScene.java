@@ -55,7 +55,7 @@ public class EntityScene extends Scene{
         if (!(entities.get(0).pos.x == 3 && entities.get(0).pos.y == 0)) {
             if (checker >= random) {
                 entities.add(new Ball(new Vec2i(3, 0), redBallSprites));
-                random = (int)(Math.random() * 60 * 5);
+                random = (int)((Math.random() + 1) * 60 * 2);
                 enemySpawned = true;
                 checker = 0;
             } else {

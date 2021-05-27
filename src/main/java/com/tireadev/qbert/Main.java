@@ -88,6 +88,7 @@ public class Main extends ShadowEngine {
                 } else if (Scene.active.equals(gameOverScene)) {
                     if ((gameOverScene.cursorPosition == 0)) {
                         mainMenuScene.onAwake();
+                        mainMenuScene.onStart();
                         mainMenuScene.setActive();
                     } else if (gameOverScene.cursorPosition == 1) {
                         close();
@@ -95,6 +96,7 @@ public class Main extends ShadowEngine {
                 } else if (Scene.active.equals(winScene)) {
                     if ((winScene.cursorPosition == 0)) {
                         mainMenuScene.onAwake();
+                        mainMenuScene.onStart();
                         mainMenuScene.setActive();
                     } else if (winScene.cursorPosition == 1) {
                         close();
