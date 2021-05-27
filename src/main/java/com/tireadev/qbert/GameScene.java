@@ -39,9 +39,11 @@ public class GameScene extends Scene {
         entityScene.onUpdate(deltaTime);
 
         byte[] qberthit;
-        byte[] levelcomplete;
+        byte[] roundup;
+        //byte[] levelcomplete;
         qberthit = loadSound("src/main/resources/sound_effects/qbert_fall.wav");
-        levelcomplete = loadSound("src/main/resources/music/start_level.wav");
+        roundup = loadSound("src/main/resources/music/start_level.wav");
+        //levelcomplete = loadSound("src/main/resources/sound_effects/prize.wav");
 
         for (int ii = 1; ii < entityScene.entities.size(); ii++) {
             if (
@@ -71,7 +73,7 @@ public class GameScene extends Scene {
         
         if (isCompleted()) {
             System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
-            playSound(levelcomplete, false);
+            playSound(roundup, false);
             changeTo += changeBy;
             GameUIScene.roundNum += 1;
             
@@ -85,6 +87,7 @@ public class GameScene extends Scene {
                 GameUIScene.levelNum += 1;
                 changeBy += 1;
                 changeTo += 1;
+                //playSound(levelcomplete, false);
                 
                 if (GameUIScene.levelNum > 3) {
                     winScene.onAwake();
