@@ -52,14 +52,15 @@ public class EntityScene extends Scene{
         tilemap = new byte[7*7];
 
         //if (keyPressed('P')) entities.add(new Ball(new Vec2i(3, 0), redBallSprites));
-        
-        if(checker == random){
-            entities.add(new Ball(new Vec2i(3, 0), redBallSprites));
-            random = (int)(Math.random() * 60 * 10);
-            enemySpawned = true;
-            checker = 0;
-        }else{
-            checker++;
+        if (!(entities.get(0).pos.x == 3 && entities.get(0).pos.y == 0)) {
+            if (checker >= random) {
+                entities.add(new Ball(new Vec2i(3, 0), redBallSprites));
+                random = (int)(Math.random() * 60 * 5);
+                enemySpawned = true;
+                checker = 0;
+            } else {
+                checker++;
+            }
         }
 
 
@@ -136,7 +137,7 @@ class Qbert extends Entity {
     @Override
     public void spawn(){
         pos.x = 3;
-        pos.y = 1;
+        pos.y = 0;
 
         dir.x = 0;
         dir.y = 0;
