@@ -12,6 +12,8 @@ public class WinScene extends Scene {
 
     int cursorPosition;
     float timer;
+    
+    byte[] option;
 
 
     public void onAwake() {
@@ -19,6 +21,8 @@ public class WinScene extends Scene {
         coolGuyR = getSubImage(atlas, 16*5, 16*8, 16, 16);
         qbert = getSubImage(atlas, 14*16, 32, 8, 10);
         timer = 0;
+        
+        option = loadSound("src/main/resources/sound_effects/jump.wav");
     }
 
     @Override
@@ -31,10 +35,14 @@ public class WinScene extends Scene {
         drawText("Continue", (tile * 6) * scale, (tile * 8) * scale, white_font, white_font_offset, scale, true, (timer-.4f)*1.5f);
         drawText("Game end", (tile * 6) * scale, (tile * 9) * scale, white_font, white_font_offset, scale, true, (timer-.6f)*1.5f);
 
-        if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0))
+        if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0)) {
             cursorPosition++;
-        if ((keyPressed(KEY_UP) || keyPressed('W')) && (cursorPosition == 1))
+            playSound(option, false);
+        }
+        if ((keyPressed(KEY_UP) || keyPressed('W')) && (cursorPosition == 1)) {
             cursorPosition--;
+            playSound(option, false);
+        }
 
         drawImage(tile  * 5 * scale, tile * (8 + cursorPosition) * scale, qbert, scale, (timer-.8f)*1.5f);
     }

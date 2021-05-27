@@ -15,6 +15,10 @@ public class GameScene extends Scene {
     static byte changeBy;
     
     static boolean newRound;
+    
+    byte[] qberthit;
+    byte[] roundup;
+    byte[] levelcomplete;
 
     @Override
     public void onAwake() {
@@ -30,6 +34,12 @@ public class GameScene extends Scene {
         changeBy = 1;
         score = 0;
         newRound = false;
+        
+        qberthit = loadSound("src/main/resources/sound_effects/qbert_fall.wav");
+        roundup = loadSound("src/main/resources/sound_effects/level_start.wav");
+        levelcomplete = loadSound("src/main/resources/sound_effects/prize.wav");
+        
+        stopAllSounds();
     }
 
     @Override
@@ -37,13 +47,14 @@ public class GameScene extends Scene {
         mapScene.onUpdate(deltaTime);
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
-        
+
         for (int ii = 1; ii < entityScene.entities.size(); ii++) {
             if (
                     entityScene.entities.get(0).pos.x == entityScene.entities.get(ii).pos.x
                  && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
             ) {
                 System.out.println("collided with " + ii);
+                playSound(qberthit, false);
                 entityScene.clearEnemies();
                 entityScene.entities.get(0).spawn();
                 GameUIScene.livesNum--;
@@ -65,7 +76,7 @@ public class GameScene extends Scene {
         
         if (isCompleted()) {
             System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
-            
+            // playSound(roundup, false);
             changeTo += changeBy;
             GameUIScene.roundNum += 1;
             
@@ -79,6 +90,7 @@ public class GameScene extends Scene {
                 GameUIScene.levelNum += 1;
                 changeBy += 1;
                 changeTo += 1;
+                playSound(levelcomplete, false);
                 
                 if (GameUIScene.levelNum > 3) {
                     winScene.onAwake();
@@ -95,7 +107,7 @@ public class GameScene extends Scene {
     }
     
     public boolean isCompleted() {
-        for (int ii = 0; ii < MapScene.mapWidth*MapScene.mapWidth - 1; ii++) {
+        for (int ii = 0; ii < MapScene.mapWidth*MapScene.mapWidth; ii++) {
             byte val = MapScene.map[ii];
             if (val == (byte)0) continue;
             if (val != (byte)changeTo) return false;

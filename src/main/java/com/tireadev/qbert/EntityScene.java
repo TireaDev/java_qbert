@@ -102,14 +102,21 @@ public class EntityScene extends Scene{
 
 class Qbert extends Entity {
 
+    byte[] qbertjump;
+
     public Qbert(Vec2i pos, byte[][] sprites) {
         super(pos, sprites, EntityType.PLAYER);
         spawn();
+
         sprite = sprites[4];
+        
+        qbertjump = loadSound("src/main/resources/sound_effects/jump.wav");
+
     }
 
     @Override
     public void update(float deltaTime) {
+        
         dir.x = 0;
         dir.y = 0;
 
@@ -132,6 +139,10 @@ class Qbert extends Entity {
         move();
 
         qbertJumped = (pos.x != prevPos.x || pos.y != prevPos.y);
+        
+        if(qbertJumped) {
+            playSound(qbertjump, false);
+        }
     }
 
     @Override
@@ -147,14 +158,20 @@ class Qbert extends Entity {
 class Ball extends Entity {
 
     float delay = 0;
+    byte[] balljump;
+    
 
     public Ball(Vec2i pos, byte[][] sprites) {
         super(pos, sprites, EntityType.ENEMY);
         spawn();
+        
+        balljump = loadSound("src/main/resources/sound_effects/jump3.wav");
+        
     }
 
     @Override
     public void update(float deltaTime) {
+
         dir.x = 0;
         dir.y = 0;
 
@@ -167,8 +184,14 @@ class Ball extends Entity {
         dir.y = 1;
 
         delay = 0;
+        
+        Vec2i prevPos = new Vec2i(pos);
 
         move();
+        
+        if (pos.x != prevPos.x || pos.y != prevPos.y)
+            playSound(balljump, false);
+        
     }
 
     @Override
