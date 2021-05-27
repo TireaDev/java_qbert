@@ -12,22 +12,31 @@ public class MainMenuScene extends Scene {
     public byte cursorPosition = 0;
     
     float timer;
+    
+    byte[] option;
+    byte[] startsound;
 
     public void onAwake() {
-        byte[] startsound;
-        startsound = loadSound("src/main/resources/sound_effects/level_start.wav");
-        playSound(startsound, false);
         ultraGames = getSubImage(atlas, 344, 0, 8 * 20, 8 * 4);
         qbertTitle = getSubImage(atlas, 344 - 8, 32, 16 * 10, 16 * 3);
         bertHimself = getSubImage(atlas, 0, 0, 16, 16);
         
         timer = 0;
+        
+        startsound = loadSound("src/main/resources/sound_effects/level_start.wav");
+        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        
+        stopAllSounds();
+    }
+    
+    @Override
+    public void onStart() {
+        playSound(startsound, true);
     }
 
     @Override
     public void onUpdate(float deltaTime) {
-        byte[] option;
-        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        
         timer += deltaTime;
     
         drawImage((5 * tile + tile/2) * scale, (tile*2 - tile/2) * scale, ultraGames, scale, timer-1);
@@ -45,10 +54,12 @@ public class MainMenuScene extends Scene {
 
         if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0)){
             cursorPosition++;
-        playSound(option, false);}
+            playSound(option, false);
+        }
         if ((keyPressed(KEY_UP) || keyPressed('W')) && (cursorPosition == 1)){
             cursorPosition--;
-        playSound(option, false);}
+            playSound(option, false);
+        }
 
         drawImage((5 * tile + tile/2) * scale, (tile * (7 + cursorPosition)) * scale, bertHimself, scale, (timer-2.3f)*1.2f);
     }

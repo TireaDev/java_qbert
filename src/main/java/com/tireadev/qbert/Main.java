@@ -15,6 +15,8 @@ public class Main extends ShadowEngine {
     static byte[][] white_font = new byte['Z' - 44+1][];
     static int white_font_offset = 44;
     
+    byte[] pause;
+    
     static boolean paused = false;
 
     GameScene gameScene;
@@ -42,22 +44,25 @@ public class Main extends ShadowEngine {
         gameOverScene = new GameOverScene();
         gameScene = new GameScene();
         winScene = new WinScene();
+        
         mainMenuScene.onAwake();
-        gameOverScene.onAwake();
-        gameScene.onAwake();
-        winScene.onAwake();
+        
+        pause = loadSound("src/main/resources/sound_effects/unused_disc.wav");
     }
 
     @Override
     public void onStart() {
         mainMenuScene.setActive();
+        mainMenuScene.onStart();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
         
-        if (keyPressed(KEY_ESC) && Scene.active.equals(gameScene))
+        if (keyPressed(KEY_ESC) && Scene.active.equals(gameScene)) {
             paused = !paused;
+            playSound(pause, false);
+        }
         
         if (!paused) {
             clear(BLACK);
