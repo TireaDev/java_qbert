@@ -93,6 +93,8 @@ class Qbert extends Entity {
 
     @Override
     public void update(float deltaTime) {
+        byte[] qbertjump;
+        qbertjump = loadSound("src/main/resources/sound_effects/jump.wav");
         dir.x = 0;
         dir.y = 0;
     
@@ -111,7 +113,8 @@ class Qbert extends Entity {
         }
         
         Vec2i prevPos = new Vec2i(pos);
-        
+        if(qbertJumped){playSound(qbertjump, false);
+        }
         move();
         
         qbertJumped = (pos.x != prevPos.x || pos.y != prevPos.y);
@@ -138,6 +141,9 @@ class Ball extends Entity {
 
     @Override
     public void update(float deltaTime) {
+        byte[] balljump;
+        balljump = loadSound("src/main/resources/sound_effects/jump3.wav");
+
         dir.x = 0;
         dir.y = 0;
     
@@ -150,7 +156,7 @@ class Ball extends Entity {
         dir.y = 1;
     
         delay = 0;
-        
+        playSound(balljump, false);
         move();
     }
     

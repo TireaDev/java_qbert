@@ -37,13 +37,19 @@ public class GameScene extends Scene {
         mapScene.onUpdate(deltaTime);
         gameUIScene.onUpdate(deltaTime);
         entityScene.onUpdate(deltaTime);
-        
+
+        byte[] qberthit;
+        byte[] levelcomplete;
+        qberthit = loadSound("src/main/resources/sound_effects/qbert_fall.wav");
+        levelcomplete = loadSound("src/main/resources/music/start_level.wav");
+
         for (int ii = 1; ii < entityScene.entities.size(); ii++) {
             if (
                     entityScene.entities.get(0).pos.x == entityScene.entities.get(ii).pos.x
                  && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
             ) {
                 System.out.println("collided with " + ii);
+                playSound(qberthit, false);
                 entityScene.clearEnemies();
                 entityScene.entities.get(0).spawn();
                 GameUIScene.livesNum--;
@@ -65,7 +71,7 @@ public class GameScene extends Scene {
         
         if (isCompleted()) {
             System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
-            
+            playSound(levelcomplete, false);
             changeTo += changeBy;
             GameUIScene.roundNum += 1;
             
