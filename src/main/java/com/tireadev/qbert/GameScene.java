@@ -1,54 +1,117 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
+
+import static com.tireadev.qbert.Main.*;
 
 public class GameScene extends Scene {
 
     MapScene mapScene;
-    EnemyScene enemyScene;
-    QbertScene qbertScene;
+    GameUIScene gameUIScene;
+    EntityScene entityScene;
 
-
-
-    static int score = 0;
-
-    public GameScene(ShadowEngine instance) {
-        super(instance);
-    }
+    static int score;
+    static byte changeTo;
+    static byte changeBy;
+    
+    static boolean newRound;
+    
+    byte[] qberthit;
+    byte[] roundup;
+    byte[] levelcomplete;
 
     @Override
     public void onAwake() {
-        mapScene = new MapScene(instance);
-        enemyScene = new EnemyScene(instance);
-        qbertScene = new QbertScene(instance);
+        mapScene = new MapScene();
+        gameUIScene = new GameUIScene();
+        entityScene = new EntityScene();
 
         mapScene.onAwake();
-        enemyScene.onAwake();
-        qbertScene.onAwake();
+        gameUIScene.onAwake();
+        entityScene.onAwake();
+        
+        changeTo = 2;
+        changeBy = 1;
+        score = 0;
+        newRound = false;
+        
+        qberthit = loadSound("src/main/resources/sound_effects/qbert_fall.wav");
+        roundup = loadSound("src/main/resources/sound_effects/level_start.wav");
+        levelcomplete = loadSound("src/main/resources/sound_effects/prize.wav");
+        
+        stopAllSounds();
     }
 
     @Override
     public void onUpdate(float deltaTime) {
         mapScene.onUpdate(deltaTime);
-        enemyScene.onUpdate(deltaTime);
-        qbertScene.onUpdate(deltaTime);
+        gameUIScene.onUpdate(deltaTime);
+        entityScene.onUpdate(deltaTime);
 
-        if (qbertScene.x == enemyScene.enemyX && qbertScene.y == enemyScene.enemyY) {
-            System.out.println("collided");
+        for (int ii = 1; ii < entityScene.entities.size(); ii++) {
+            if (
+                    entityScene.entities.get(0).pos.x == entityScene.entities.get(ii).pos.x
+                 && entityScene.entities.get(0).pos.y == entityScene.entities.get(ii).pos.y
+            ) {
+                System.out.println("collided with " + ii);
+                playSound(qberthit, false);
+                entityScene.clearEnemies();
+                entityScene.entities.get(0).spawn();
+                GameUIScene.livesNum--;
+                if (GameUIScene.livesNum < 0) {
+                    gameOverScene.onAwake();
+                    gameOverScene.setActive();
+                }
+                return;
+            }
         }
-
-        if(instance.mousePressed(0)){
-           addScore(25);
+        
+        if (EntityScene.qbertJumped && !newRound) {
+            if (MapScene.map[entityScene.entities.get(0).pos.x + MapScene.mapWidth * entityScene.entities.get(0).pos.y] != changeTo)
+                GameUIScene.score += 25;
+            MapScene.changeTileTo(entityScene.entities.get(0).pos.x, entityScene.entities.get(0).pos.y, (byte)1, changeTo);
         }
-
-        if(instance.mousePressed(1)) {
-            System.out.println("score: " + score);
+        
+        newRound = false;
+        
+        if (isCompleted()) {
+            System.out.println("Round " + (GameUIScene.roundNum) + " Level " + (GameUIScene.levelNum) + " Completed");
+            // playSound(roundup, false);
+            changeTo += changeBy;
+            GameUIScene.roundNum += 1;
+            
+            GameUIScene.score += 500;
+            GameUIScene.score += GameUIScene.livesNum * 200;
+            
+            if (GameUIScene.roundNum > 4) {
+                GameUIScene.score += 1500;
+                
+                GameUIScene.roundNum = 1;
+                GameUIScene.levelNum += 1;
+                changeBy += 1;
+                changeTo += 1;
+                playSound(levelcomplete, false);
+                
+                if (GameUIScene.levelNum > 3) {
+                    winScene.onAwake();
+                    winScene.setActive();
+                }
+            }
+            
+            GameUIScene.cubesVal = (changeTo - 1) % 4;
+            
+            entityScene.entities.get(0).spawn();
+            entityScene.clearEnemies();
+            newRound = true;
         }
     }
-
-    public static void addScore(int i){
-        score += i;
+    
+    public boolean isCompleted() {
+        for (int ii = 0; ii < MapScene.mapWidth*MapScene.mapWidth; ii++) {
+            byte val = MapScene.map[ii];
+            if (val == (byte)0) continue;
+            if (val != (byte)changeTo) return false;
+        }
+        return true;
     }
-
 }

@@ -1,56 +1,66 @@
 package com.tireadev.qbert;
 
 import com.tireadev.shadowengine.Scene;
-import com.tireadev.shadowengine.ShadowEngine;
 
-import static com.tireadev.qbert.Main.atlas;
-import static com.tireadev.qbert.Main.scale;
+import static com.tireadev.qbert.Main.*;
 
 public class MainMenuScene extends Scene {
-
-    ShadowEngine se;
-
-
-    public MainMenuScene(ShadowEngine instance) {
-        super(instance);
-    }
 
     byte[] ultraGames;
     byte[] qbertTitle;
     byte[] bertHimself;
-    byte[][] chars = new byte['Z'-44+1][];
-    //byte[][] nums = new byte[10][];
-
+    public byte cursorPosition = 0;
+    
+    float timer;
+    
+    byte[] option;
+    byte[] startsound;
 
     public void onAwake() {
-        se = instance;
-        ultraGames = se.getSubImage(atlas,344,0,8*20,8*4);
-        qbertTitle = se.getSubImage(atlas,344-8,32,16*10,16*3);
-        for (int i = '0'-44; i <= '9'-44; i++) chars[i] = se.getSubImage(atlas,128+8*(i-'0'+44),64,8,8); // řádek 1
-        for (int i = 'A'-44; i <= 'Z'-44; i++) chars[i] = se.getSubImage(atlas,128+8*(i-'A'+44),64+8,8,8); // řádek 2
-        chars[0] = se.getSubImage(atlas, 128+160, 64, 8, 8); // ,
-        chars[2] = se.getSubImage(atlas, 128+168, 64, 8, 8); // .
-        bertHimself = se.getSubImage(atlas,0,0,16,16);
+        ultraGames = getSubImage(atlas, 344, 0, 8 * 20, 8 * 4);
+        qbertTitle = getSubImage(atlas, 344 - 8, 32, 16 * 10, 16 * 3);
+        bertHimself = getSubImage(atlas, 0, 0, 16, 16);
+        
+        timer = 0;
+        
+        startsound = loadSound("src/main/resources/sound_effects/level_start.wav");
+        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        
+        stopAllSounds();
     }
-
+    
+    @Override
+    public void onStart() {
+        playSound(startsound, true);
+    }
 
     @Override
     public void onUpdate(float deltaTime) {
-        se.drawImage((5 * 16 + 8) * scale, (32 - 8) * scale, ultraGames, scale);
-        se.drawImage((3 * 16) * scale, (16 * 3) * scale, qbertTitle, scale);
-        se.drawText("Play Select", (16 * 6 - 8) * scale, (16 * 6) * scale, chars, 44, scale, true);
-        se.drawText("Play", (16 * 7) * scale, (16 * 7) * scale, chars, 44, scale, true);
-        se.drawText("Quit", (16 * 7) * scale, (16 * 8) * scale, chars, 44, scale, true);
-        se.drawImage((5 * 16) * scale, (16 * 7) * scale, bertHimself, scale);
-        se.drawText("TM AND  0  1989", 5 * 16 * scale, 10 * 16 * scale, chars, 44, scale, true);
-        se.drawText("KONAMI INDUSTRY CO.,LTD.", 2 * 16 * scale, (10 * 16 * scale) + 16, chars, 44, scale, true);
-        se.drawText("LICENSED BY", 6 * 16 * scale, 11 * 16 * scale, chars, 44, scale, true);
-        se.drawText("NINTENDO OF AMERICA INC.", 2 * 16 * scale, (11 * 16 * scale) + 16, chars, 44, scale, true);
-        se.drawText("ULTRA GAMES IS A REGISTERED ", 16 * scale, (12 * 16 * scale) + 16, chars, 44, scale, true);
-        se.drawText("TRADEMARK OF ULTRA SOFTWARE", 16 * scale, 13 * 16 * scale, chars, 44, scale, true);
-        se.drawText("CORPORATION.", 16 * scale, (13 * 16 * scale) + 16, chars, 44, scale, true);
+        
+        timer += deltaTime;
+    
+        drawImage((5 * tile + tile/2) * scale, (tile*2 - tile/2) * scale, ultraGames, scale, timer-1);
+        drawImage((3 * tile) * scale, (tile * 3) * scale, qbertTitle, scale, timer-1.2f);
+        drawText("Play Select", (tile * 6 - tile/2) * scale, (tile * 6) * scale, white_font, white_font_offset, scale, true, (timer-2)*1.4f);
+        drawText("Play", (tile * 7) * scale, (tile * 7 + tile/4) * scale, white_font, white_font_offset, scale, true, (timer-2.1f)*1.2f);
+        drawText("Quit", (tile * 7) * scale, (tile * 8 + tile/4) * scale, white_font, white_font_offset, scale, true, (timer-2.2f)*1.2f);
+        drawText("TM AND  @  1989", 5 * tile * scale, 10 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("KONAMI INDUSTRY CO.,LTD.", 2 * tile * scale, (10 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("LICENSED BY", 6 * tile * scale, 11 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("NINTENDO OF AMERICA INC.", 2 * tile * scale, (11 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("ULTRA GAMES IS A REGISTERED ", tile * scale, (12 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("TRADEMARK OF ULTRA SOFTWARE", tile * scale, 13 * tile * scale, white_font, white_font_offset, scale, true, timer-1.5f);
+        drawText("CORPORATION.", tile * scale, (13 * tile + tile/2) * scale, white_font, white_font_offset, scale, true, timer-1.5f);
 
+        if ((keyPressed(KEY_DOWN) || keyPressed('S')) && (cursorPosition == 0)){
+            cursorPosition++;
+            playSound(option, false);
+        }
+        if ((keyPressed(KEY_UP) || keyPressed('W')) && (cursorPosition == 1)){
+            cursorPosition--;
+            playSound(option, false);
+        }
+
+        drawImage((5 * tile + tile/2) * scale, (tile * (7 + cursorPosition)) * scale, bertHimself, scale, (timer-2.3f)*1.2f);
     }
-
-
 }
