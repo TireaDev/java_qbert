@@ -23,8 +23,8 @@ public class MainMenuScene extends Scene {
         
         timer = 0;
         
-        startsound = loadSound("src/main/resources/sound_effects/level_start.wav");
-        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        startsound = loadSound(res_path + "sound_effects/level_start.wav");
+        option = loadSound(res_path + "sound_effects/jump.wav");
         
         stopAllSounds();
     }

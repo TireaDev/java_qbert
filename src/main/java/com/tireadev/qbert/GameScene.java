@@ -35,9 +35,9 @@ public class GameScene extends Scene {
         score = 0;
         newRound = false;
         
-        qberthit = loadSound("src/main/resources/sound_effects/qbert_fall.wav");
-        roundup = loadSound("src/main/resources/sound_effects/level_start.wav");
-        levelcomplete = loadSound("src/main/resources/sound_effects/prize.wav");
+        qberthit = loadSound(res_path + "sound_effects/qbert_fall.wav");
+        roundup = loadSound(res_path + "sound_effects/level_start.wav");
+        levelcomplete = loadSound(res_path + "sound_effects/prize.wav");
         
         stopAllSounds();
     }

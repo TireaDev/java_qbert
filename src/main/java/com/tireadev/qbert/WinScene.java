@@ -22,7 +22,7 @@ public class WinScene extends Scene {
         qbert = getSubImage(atlas, 14*16, 32, 8, 10);
         timer = 0;
         
-        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        option = loadSound(res_path + "sound_effects/jump.wav");
     }
 
     @Override

@@ -11,6 +11,8 @@ public class Main extends ShadowEngine {
 
     static final byte scale = 3, tile = 16;
 
+    static final String res_path = "res/";
+
     static byte[] atlas;
     static byte[][] white_font = new byte['Z' - 44+1][];
     static int white_font_offset = 44;
@@ -30,7 +32,7 @@ public class Main extends ShadowEngine {
 
     @Override
     public void onAwake() {
-        atlas = loadImage("src/main/resources/textures/atlas.png");
+        atlas = loadImage(res_path + "textures/atlas.png");
 
         for (int i = '0' - 44; i <= '9' - 44; i++)
             white_font[i] = getSubImage(atlas, 128 + 8 * (i - '0' + 44), 64, 8, 8);     // řádek 1
@@ -47,7 +49,7 @@ public class Main extends ShadowEngine {
         
         mainMenuScene.onAwake();
         
-        pause = loadSound("src/main/resources/sound_effects/unused_disc.wav");
+        pause = loadSound(res_path + "sound_effects/unused_disc.wav");
     }
 
     @Override
