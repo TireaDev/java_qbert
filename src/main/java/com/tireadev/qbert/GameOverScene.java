@@ -21,8 +21,8 @@ public class GameOverScene extends Scene {
         
         stopAllSounds();
         
-        gameover = loadSound("src/main/resources/sound_effects/game_over.wav");
-        option = loadSound("src/main/resources/sound_effects/jump.wav");
+        gameover = loadSound(res_path + "sound_effects/game_over.wav");
+        option = loadSound(res_path + "sound_effects/jump.wav");
         
         playSound(gameover, true);
     }

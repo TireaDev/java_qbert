@@ -110,7 +110,7 @@ class Qbert extends Entity {
 
         sprite = sprites[4];
         
-        qbertjump = loadSound("src/main/resources/sound_effects/jump.wav");
+        qbertjump = loadSound(res_path + "sound_effects/jump.wav");
 
     }
 
@@ -165,7 +165,7 @@ class Ball extends Entity {
         super(pos, sprites, EntityType.ENEMY);
         spawn();
         
-        balljump = loadSound("src/main/resources/sound_effects/jump3.wav");
+        balljump = loadSound(res_path + "sound_effects/jump3.wav");
         
     }
 
